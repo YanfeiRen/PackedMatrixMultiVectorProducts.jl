@@ -1,4 +1,6 @@
 #PackedMatrixMultiVectorProducts tests
+using PackedMatrixMultiVectorProducts
+using Test
 
 all_tests = [
              "pack"]
