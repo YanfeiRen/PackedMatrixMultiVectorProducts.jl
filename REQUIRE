@@ -1,7 +1,4 @@
 julia 1.0
 MatrixNetworks
 BenchmarkTools
-SparseArrays
-LinearAlgebra
 StaticArrays
-SparseArrays
