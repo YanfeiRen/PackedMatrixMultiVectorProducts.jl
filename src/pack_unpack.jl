@@ -30,46 +30,15 @@ julia> @time A*x
 We could check the dimensions at the beginning and treat them as special cases
 =#
 
-# pack and unpack functions we will need:
-function pack(X::AbstractArray{T,2}) where T<:Real
-    # convert to Vector{SVector{size(k),T}}
-    Xt = X'
-    vector_size,nvectors = size(Xt)
-    V = Vector{SArray{Tuple{vector_size},T,1,vector_size}}(undef,nvectors)
-    for i = 1:nvectors
-        V[i] = SVector{vector_size}(Xt[:,i])
-    end
-    return V
+function pack(X::AbstractArray{T,2}) where T
+    isbitstype(T) || error("$(T) is not a bitstype")
+    return reinterpret(SVector{size(X,2),T}, vec(copy(transpose(X))))
 end
 
-function pack(X::Adjoint{T,AbstractArray{T,2}}) where T<:Real
-    # convert to Vector{SVector{size(k),T}}
-    Xt = X.parent
-    vector_size,nvectors = size(Xt)
-    V = Vector{SArray{Tuple{vector_size},T,1,vector_size}}(undef,nvectors)
-    for i = 1:nvectors
-        V[i] = SVector{vector_size}(Xt[:,i])
-    end
-    return V
-end
-
-# function unpack(V::Vector{T}) where T <: SArray
-#     k = length(V[1])
-#     n = length(V)
-#     X = zeros(n,k)
-#     for colid = 1:n
-#         X[colid,:] = Vector(V[colid])
-#     end
-#     return X
-# end
-
-# this method is faster and uses less allocations
-function unpack(V::Vector{T}) where T <: SArray
-    k = length(V[1])
-    n = length(V)
-    X = zeros(n,k)
-    for colid = 1:k
-        X[:,colid] = map(i->V[i][colid],1:n)
-    end
-    return X
+# based on
+# https://github.com/JuliaArrays/StaticArrays.jl/pull/496/commits/92287a299af7bfc47cf3b26c135c6ce6a4c99ba0
+function unpack(a::StridedVector{SArray{SZT, T, NDIMS, L}}) where {T,SZT,NDIMS,L}
+    isbitstype(T) || error("$(T) is not a bitstype")
+    szres = (size(eltype(a))..., size(a)...)
+    return copy(transpose(reshape(reinterpret(T, a),szres)))
 end
