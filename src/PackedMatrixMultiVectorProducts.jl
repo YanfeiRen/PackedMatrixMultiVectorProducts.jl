@@ -7,6 +7,7 @@ using MatrixNetworks
 using BenchmarkTools
 
 include("pack_unpack.jl")
+include("multiply.jl")
 
-export pack,unpack
+export pack,unpack,*
 end
