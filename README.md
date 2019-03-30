@@ -5,9 +5,11 @@ Linux and macOS: [![Build Status](https://travis-ci.org/YanfeiRen/PackedMatrixMu
 # PackedMatrixMultiVectorProducts.jl
 
 The goal of this package is to perform operations such as `A*X`, `A'*X`, `A*X'`, `A'*X'` faster than Julia's builtin routines.
-It takes advantage of a key component and that is StaticArrays. We transform the righthand side matrix to a `Vector` of `SVector`s. The advantage we get is, with `StaticArrays` we already know the size of the vector we are multiplying by.
+It takes advantage of a key component and that is StaticArrays. We transform the righthand side matrix to a `Vector` of `SVector`s. The advantage we get is, with `StaticArrays` the compiler already know the size of the vector we are multiplying by.
 
 This package performs operations such as `A*X`, `A'*X`, `A*X'`, `A'*X'` when `A` is sparse and `X` is dense. Below, we show benchmarks with for the 4 operations. These operations are extendable to `A` being dense and special types of matrices. (This is the next step for this package).
+
+TODO: Note about the number of columns of `X`
 
 ## Getting started
 ```
@@ -458,4 +460,117 @@ end
 ```
 Results:
 ```
+julia> run_benchmarks_AtmulXt(50_000,10/50_000,[2,4,8,16])
+###################
+k = 2
+Benchmark Julia's matmul
+BenchmarkTools.Trial: 
+  memory estimate:  781.69 KiB
+  allocs estimate:  10
+  --------------
+  minimum time:     17.388 s (0.00% GC)
+  median time:      17.388 s (0.00% GC)
+  mean time:        17.388 s (0.00% GC)
+  maximum time:     17.388 s (0.00% GC)
+  --------------
+  samples:          1
+  evals/sample:     1
+
+Benchmark PackedMatrixMultiVectorProducts
+BenchmarkTools.Trial: 
+  memory estimate:  2.29 MiB
+  allocs estimate:  28
+  --------------
+  minimum time:     2.123 ms (0.00% GC)
+  median time:      2.149 ms (0.00% GC)
+  mean time:        2.222 ms (2.79% GC)
+  maximum time:     4.374 ms (0.00% GC)
+  --------------
+  samples:          2247
+  evals/sample:     1
+###################
+###################
+k = 4
+Benchmark Julia's matmul
+BenchmarkTools.Trial: 
+  memory estimate:  1.53 MiB
+  allocs estimate:  10
+  --------------
+  minimum time:     21.101 s (0.00% GC)
+  median time:      21.101 s (0.00% GC)
+  mean time:        21.101 s (0.00% GC)
+  maximum time:     21.101 s (0.00% GC)
+  --------------
+  samples:          1
+  evals/sample:     1
+
+Benchmark PackedMatrixMultiVectorProducts
+BenchmarkTools.Trial: 
+  memory estimate:  4.58 MiB
+  allocs estimate:  28
+  --------------
+  minimum time:     2.965 ms (0.00% GC)
+  median time:      3.005 ms (0.00% GC)
+  mean time:        3.162 ms (4.34% GC)
+  maximum time:     5.452 ms (0.00% GC)
+  --------------
+  samples:          1579
+  evals/sample:     1
+###################
+###################
+k = 8
+Benchmark Julia's matmul
+BenchmarkTools.Trial: 
+  memory estimate:  3.05 MiB
+  allocs estimate:  10
+  --------------
+  minimum time:     28.501 s (0.00% GC)
+  median time:      28.501 s (0.00% GC)
+  mean time:        28.501 s (0.00% GC)
+  maximum time:     28.501 s (0.00% GC)
+  --------------
+  samples:          1
+  evals/sample:     1
+
+Benchmark PackedMatrixMultiVectorProducts
+BenchmarkTools.Trial: 
+  memory estimate:  9.16 MiB
+  allocs estimate:  28
+  --------------
+  minimum time:     4.954 ms (0.00% GC)
+  median time:      5.084 ms (0.00% GC)
+  mean time:        5.345 ms (5.54% GC)
+  maximum time:     8.156 ms (0.00% GC)
+  --------------
+  samples:          935
+  evals/sample:     1
+###################
+###################
+k = 16
+Benchmark Julia's matmul
+BenchmarkTools.Trial: 
+  memory estimate:  6.10 MiB
+  allocs estimate:  10
+  --------------
+  minimum time:     43.356 s (0.00% GC)
+  median time:      43.356 s (0.00% GC)
+  mean time:        43.356 s (0.00% GC)
+  maximum time:     43.356 s (0.00% GC)
+  --------------
+  samples:          1
+  evals/sample:     1
+
+Benchmark PackedMatrixMultiVectorProducts
+BenchmarkTools.Trial: 
+  memory estimate:  18.31 MiB
+  allocs estimate:  28
+  --------------
+  minimum time:     42.007 ms (0.00% GC)
+  median time:      43.619 ms (2.97% GC)
+  mean time:        44.095 ms (2.05% GC)
+  maximum time:     48.227 ms (2.57% GC)
+  --------------
+  samples:          114
+  evals/sample:     1
+###################
 ```
