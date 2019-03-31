@@ -1,6 +1,10 @@
 function benchmark(A,X)
     @assert A*X ≈ unpack(A*pack(X))
     println("###################")
+    println("typeof(A) = $(typeof(A))")
+    println("typeof(X) = $(typeof(X))")
+    println("size(A) = $(size(A))")
+    println("size(X) = $(size(X))")
     println("Benchmark Julia's matmul")
     b = @benchmark $A*$X
     display(b)
