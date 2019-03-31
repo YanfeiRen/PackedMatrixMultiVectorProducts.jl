@@ -1,7 +1,6 @@
 function benchmark(A,X)
     @assert A*X ≈ unpack(A*pack(X))
     println("###################")
-    println("k = $k")
     println("Benchmark Julia's matmul")
     b = @benchmark $A*$X
     display(b)
