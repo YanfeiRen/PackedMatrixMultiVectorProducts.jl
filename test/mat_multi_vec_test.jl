@@ -1,18 +1,25 @@
 using SparseArrays
-using LinearAlgrebra
+using LinearAlgebra
 
 @testset "operation_tests" begin
-    X = randn(10,2)
-    @test (5I)*X == unpack((5I)*pack(X))
+    n = 10
+    for k = [1,2,4,8,16]
+        X = randn(n,k)
+        @test (5I)*X == unpack((5I)*pack(X))
 
-    D = Diagonal(randn(10))
-    @test (D)*X == unpack((D)*pack(X))
+        D = Diagonal(randn(10))
+        @test (D)*X == unpack((D)*pack(X))
 
-    T = Tridiagonal(randn(10,10))
-    @test (T)*X == unpack((T)*pack(X))
+        MySymTridiagonal(X) = SymTridiagonal(X+X')
+        BidiagU(X) = Bidiagonal(X,:U)
+        BidiagL(X) = Bidiagonal(X,:L)
 
-    #L = LowerTriangular(ones(10,10))
-    #@test (L)*X == unpack((L)*pack(X))
+        for Mtype = [Symmetric,Hermitian,UpperTriangular,LowerTriangular,
+                     Tridiagonal,MySymTridiagonal,BidiagU,BidiagL]
+            M = Mtype(randn(10,10))
+            @test (M)*X ≈ unpack((M)*pack(X))
+        end
+    end
 end
 
 @testset "* operators" begin
@@ -56,15 +63,6 @@ end
                 @test A'*X' ≈ unpack(A'*pack(X'))
             end
         end
-
-        X = randn(100,k)
-        @test (5I)*X == unpack((5I)*pack(X))
-
-        D = Diagonal(randn(100))
-        @test (D)*X == unpack((D)*pack(X))
-
-        T = Tridiagonal(randn(100,100))
-        @test (T)*X == unpack((T)*pack(X))
     end
 end
 
