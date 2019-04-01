@@ -3,7 +3,8 @@ using PackedMatrixMultiVectorProducts
 using Test
 
 all_tests = [
-             "pack"]
+             "pack"
+             "mat_multi_vec"]
 
 for ti = 1:length(all_tests)
     t = all_tests[ti]

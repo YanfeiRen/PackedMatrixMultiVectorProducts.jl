@@ -28,9 +28,8 @@ end
 
 
 @testset "pack_empty_vectors" begin
-    # just throw the errors for Float64 now... 
-    #for  T = [Int8,Int16,Int32,Int64,Float32,Float64,Complex{Float32},Complex{Float64}]
-    for  T = [Float64]
+    # just throw the errors for Float64 now...
+    for  T = [Int8,Int16,Int32,Int64,Float32,Float64,Complex{Float32},Complex{Float64}]
         for sz = [(0,0), (1,0), (0,1), (5,0), (0,5)]
             X = rand(T,sz...)
             @test X == unpack(pack(X))

@@ -4,14 +4,22 @@ Linux and macOS: [![Build Status](https://travis-ci.org/YanfeiRen/PackedMatrixMu
 
 # PackedMatrixMultiVectorProducts.jl
 
-The goal of this package is to perform operations such as `A*X`, `A'*X`, `A*X'`, `A'*X'` faster than Julia's builtin routines.
-It takes advantage of a key component and that is StaticArrays. We transform the righthand side matrix to a `Vector` of `SVector`s. The advantage we get is, with `StaticArrays` the compiler already know the size of the vector we are multiplying by.
+The goal of this package is to perform operations such
+as `A*X`, `A'*X`, `A*X'`, `A'*X'` faster than Julia's builtin routines.
+To do so, we use the StaticArrays to encode the righthand side matrix to
+a `Vector` of `StaticArrays`s. Using `StaticArrays` the compiler already
+know the size of the vector we are multiplying by and hence it can generate
+efficient SIMD code.
 
-This package performs operations such as `A*X`, `A'*X`, `A*X'`, `A'*X'` when `A` is sparse and `X` is dense. Below, we show benchmarks with for the 4 operations. These operations are extendable to `A` being dense and special types of matrices. (This is the next step for this package).
+The initial goal was to compute multiple iterative methods at once and use
+the SIMD feature to do this in less time. Hence, the package performs
+operations such as `A*X`, `A'*X`, `A*X'`, `A'*X'` when `A` is sparse
+and `X` is dense. Below, we show benchmarks with for the 4 operations.
+We will investigate additional operations as needed.
 
 TODO: Note about the number of columns of `X`
 
-## Getting started
+## Getting started and how to do a matrix-vector product.
 ```
 using Pkg
 Pkg.clone("https://github.com/YanfeiRen/PackedMatrixMultiVectorProducts.jl")
@@ -51,7 +59,7 @@ julia> run_benchmarks_AmulX(50_000,10/50_000,[2,4,8,16])
 ###################
 k = 2
 Benchmark Julia's matmul
-BenchmarkTools.Trial: 
+BenchmarkTools.Trial:
   memory estimate:  781.33 KiB
   allocs estimate:  2
   --------------
@@ -64,7 +72,7 @@ BenchmarkTools.Trial:
   evals/sample:     1
 
 Benchmark PackedMatrixMultiVectorProducts
-BenchmarkTools.Trial: 
+BenchmarkTools.Trial:
   memory estimate:  2.29 MiB
   allocs estimate:  25
   --------------
@@ -79,7 +87,7 @@ BenchmarkTools.Trial:
 ###################
 k = 4
 Benchmark Julia's matmul
-BenchmarkTools.Trial: 
+BenchmarkTools.Trial:
   memory estimate:  1.53 MiB
   allocs estimate:  2
   --------------
@@ -92,7 +100,7 @@ BenchmarkTools.Trial:
   evals/sample:     1
 
 Benchmark PackedMatrixMultiVectorProducts
-BenchmarkTools.Trial: 
+BenchmarkTools.Trial:
   memory estimate:  4.58 MiB
   allocs estimate:  25
   --------------
@@ -107,7 +115,7 @@ BenchmarkTools.Trial:
 ###################
 k = 8
 Benchmark Julia's matmul
-BenchmarkTools.Trial: 
+BenchmarkTools.Trial:
   memory estimate:  3.05 MiB
   allocs estimate:  2
   --------------
@@ -120,7 +128,7 @@ BenchmarkTools.Trial:
   evals/sample:     1
 
 Benchmark PackedMatrixMultiVectorProducts
-BenchmarkTools.Trial: 
+BenchmarkTools.Trial:
   memory estimate:  9.16 MiB
   allocs estimate:  25
   --------------
@@ -135,7 +143,7 @@ BenchmarkTools.Trial:
 ###################
 k = 16
 Benchmark Julia's matmul
-BenchmarkTools.Trial: 
+BenchmarkTools.Trial:
   memory estimate:  6.10 MiB
   allocs estimate:  2
   --------------
@@ -148,7 +156,7 @@ BenchmarkTools.Trial:
   evals/sample:     1
 
 Benchmark PackedMatrixMultiVectorProducts
-BenchmarkTools.Trial: 
+BenchmarkTools.Trial:
   memory estimate:  18.31 MiB
   allocs estimate:  25
   --------------
@@ -188,7 +196,7 @@ julia> run_benchmarks_AmulXt(50_000,10/50_000,[2,4,8,16])
 ###################
 k = 2
 Benchmark Julia's matmul
-BenchmarkTools.Trial: 
+BenchmarkTools.Trial:
   memory estimate:  781.67 KiB
   allocs estimate:  9
   --------------
@@ -201,7 +209,7 @@ BenchmarkTools.Trial:
   evals/sample:     1
 
 Benchmark PackedMatrixMultiVectorProducts
-BenchmarkTools.Trial: 
+BenchmarkTools.Trial:
   memory estimate:  2.29 MiB
   allocs estimate:  26
   --------------
@@ -216,7 +224,7 @@ BenchmarkTools.Trial:
 ###################
 k = 4
 Benchmark Julia's matmul
-BenchmarkTools.Trial: 
+BenchmarkTools.Trial:
   memory estimate:  1.53 MiB
   allocs estimate:  9
   --------------
@@ -229,7 +237,7 @@ BenchmarkTools.Trial:
   evals/sample:     1
 
 Benchmark PackedMatrixMultiVectorProducts
-BenchmarkTools.Trial: 
+BenchmarkTools.Trial:
   memory estimate:  4.58 MiB
   allocs estimate:  26
   --------------
@@ -244,7 +252,7 @@ BenchmarkTools.Trial:
 ###################
 k = 8
 Benchmark Julia's matmul
-BenchmarkTools.Trial: 
+BenchmarkTools.Trial:
   memory estimate:  3.05 MiB
   allocs estimate:  9
   --------------
@@ -257,7 +265,7 @@ BenchmarkTools.Trial:
   evals/sample:     1
 
 Benchmark PackedMatrixMultiVectorProducts
-BenchmarkTools.Trial: 
+BenchmarkTools.Trial:
   memory estimate:  9.16 MiB
   allocs estimate:  26
   --------------
@@ -272,7 +280,7 @@ BenchmarkTools.Trial:
 ###################
 k = 16
 Benchmark Julia's matmul
-BenchmarkTools.Trial: 
+BenchmarkTools.Trial:
   memory estimate:  6.10 MiB
   allocs estimate:  9
   --------------
@@ -285,7 +293,7 @@ BenchmarkTools.Trial:
   evals/sample:     1
 
 Benchmark PackedMatrixMultiVectorProducts
-BenchmarkTools.Trial: 
+BenchmarkTools.Trial:
   memory estimate:  18.31 MiB
   allocs estimate:  26
   --------------
@@ -326,7 +334,7 @@ julia> run_benchmarks_AtmulX(50_000,10/50_000,[2,4,8,16])
 ###################
 k = 2
 Benchmark Julia's matmul
-BenchmarkTools.Trial: 
+BenchmarkTools.Trial:
   memory estimate:  781.34 KiB
   allocs estimate:  3
   --------------
@@ -339,7 +347,7 @@ BenchmarkTools.Trial:
   evals/sample:     1
 
 Benchmark PackedMatrixMultiVectorProducts
-BenchmarkTools.Trial: 
+BenchmarkTools.Trial:
   memory estimate:  2.29 MiB
   allocs estimate:  27
   --------------
@@ -354,7 +362,7 @@ BenchmarkTools.Trial:
 ###################
 k = 4
 Benchmark Julia's matmul
-BenchmarkTools.Trial: 
+BenchmarkTools.Trial:
   memory estimate:  1.53 MiB
   allocs estimate:  3
   --------------
@@ -367,7 +375,7 @@ BenchmarkTools.Trial:
   evals/sample:     1
 
 Benchmark PackedMatrixMultiVectorProducts
-BenchmarkTools.Trial: 
+BenchmarkTools.Trial:
   memory estimate:  4.58 MiB
   allocs estimate:  27
   --------------
@@ -382,7 +390,7 @@ BenchmarkTools.Trial:
 ###################
 k = 8
 Benchmark Julia's matmul
-BenchmarkTools.Trial: 
+BenchmarkTools.Trial:
   memory estimate:  3.05 MiB
   allocs estimate:  3
   --------------
@@ -395,7 +403,7 @@ BenchmarkTools.Trial:
   evals/sample:     1
 
 Benchmark PackedMatrixMultiVectorProducts
-BenchmarkTools.Trial: 
+BenchmarkTools.Trial:
   memory estimate:  9.16 MiB
   allocs estimate:  27
   --------------
@@ -410,7 +418,7 @@ BenchmarkTools.Trial:
 ###################
 k = 16
 Benchmark Julia's matmul
-BenchmarkTools.Trial: 
+BenchmarkTools.Trial:
   memory estimate:  6.10 MiB
   allocs estimate:  3
   --------------
@@ -423,7 +431,7 @@ BenchmarkTools.Trial:
   evals/sample:     1
 
 Benchmark PackedMatrixMultiVectorProducts
-BenchmarkTools.Trial: 
+BenchmarkTools.Trial:
   memory estimate:  18.31 MiB
   allocs estimate:  27
   --------------
@@ -464,7 +472,7 @@ julia> run_benchmarks_AtmulXt(50_000,10/50_000,[2,4,8,16])
 ###################
 k = 2
 Benchmark Julia's matmul
-BenchmarkTools.Trial: 
+BenchmarkTools.Trial:
   memory estimate:  781.69 KiB
   allocs estimate:  10
   --------------
@@ -477,7 +485,7 @@ BenchmarkTools.Trial:
   evals/sample:     1
 
 Benchmark PackedMatrixMultiVectorProducts
-BenchmarkTools.Trial: 
+BenchmarkTools.Trial:
   memory estimate:  2.29 MiB
   allocs estimate:  28
   --------------
@@ -492,7 +500,7 @@ BenchmarkTools.Trial:
 ###################
 k = 4
 Benchmark Julia's matmul
-BenchmarkTools.Trial: 
+BenchmarkTools.Trial:
   memory estimate:  1.53 MiB
   allocs estimate:  10
   --------------
@@ -505,7 +513,7 @@ BenchmarkTools.Trial:
   evals/sample:     1
 
 Benchmark PackedMatrixMultiVectorProducts
-BenchmarkTools.Trial: 
+BenchmarkTools.Trial:
   memory estimate:  4.58 MiB
   allocs estimate:  28
   --------------
@@ -520,7 +528,7 @@ BenchmarkTools.Trial:
 ###################
 k = 8
 Benchmark Julia's matmul
-BenchmarkTools.Trial: 
+BenchmarkTools.Trial:
   memory estimate:  3.05 MiB
   allocs estimate:  10
   --------------
@@ -533,7 +541,7 @@ BenchmarkTools.Trial:
   evals/sample:     1
 
 Benchmark PackedMatrixMultiVectorProducts
-BenchmarkTools.Trial: 
+BenchmarkTools.Trial:
   memory estimate:  9.16 MiB
   allocs estimate:  28
   --------------
@@ -548,7 +556,7 @@ BenchmarkTools.Trial:
 ###################
 k = 16
 Benchmark Julia's matmul
-BenchmarkTools.Trial: 
+BenchmarkTools.Trial:
   memory estimate:  6.10 MiB
   allocs estimate:  10
   --------------
@@ -561,7 +569,7 @@ BenchmarkTools.Trial:
   evals/sample:     1
 
 Benchmark PackedMatrixMultiVectorProducts
-BenchmarkTools.Trial: 
+BenchmarkTools.Trial:
   memory estimate:  18.31 MiB
   allocs estimate:  28
   --------------
