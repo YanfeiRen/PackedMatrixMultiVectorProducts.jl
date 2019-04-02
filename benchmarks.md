@@ -1,551 +1,536 @@
 
-## Benchmarks of `A*X`
 Code to reproduce:
 ```
-function run_benchmarks_AmulX(n,p,kvalues)
-    A = sprand(n,n,p)
-    for k in kvalues
-        X = randn(n,k)
-        @assert A*X ≈ unpack(A*pack(X))
-        println("###################")
-        println("k = $k")
-        println("Benchmark Julia's matmul")
-        b = @benchmark $A*$X
-        display(b)
-        println("")
-        println("Benchmark PackedMatrixMultiVectorProducts")
-        b = @benchmark unpack($A*pack($X))
-        display(b)
-        println("###################")
-    end
-end
+PackedMatrixMultiVectorProducts.benchmark()
 ```
 Results
+## Benchmarks of `A*X`
 ```
-julia> run_benchmarks_AmulX(50_000,10/50_000,[2,4,8,16])
+##### Benchmarks for A*X #####
+***** k = 2 *****
 ###################
-k = 2
+typeof(A) = SparseArrays.SparseMatrixCSC{Float64,Int64}
+typeof(X) = Array{Float64,2}
+size(A) = (50000, 50000)
+size(X) = (50000, 2)
 Benchmark Julia's matmul
-BenchmarkTools.Trial:
+BenchmarkTools.Trial: 
   memory estimate:  781.33 KiB
   allocs estimate:  2
   --------------
-  minimum time:     3.199 ms (0.00% GC)
-  median time:      3.256 ms (0.00% GC)
-  mean time:        3.308 ms (0.60% GC)
-  maximum time:     7.290 ms (0.00% GC)
+  minimum time:     3.050 ms (0.00% GC)
+  median time:      3.067 ms (0.00% GC)
+  mean time:        3.175 ms (2.47% GC)
+  maximum time:     100.093 ms (92.80% GC)
   --------------
-  samples:          1511
+  samples:          1574
   evals/sample:     1
 
 Benchmark PackedMatrixMultiVectorProducts
-BenchmarkTools.Trial:
+BenchmarkTools.Trial: 
   memory estimate:  2.29 MiB
   allocs estimate:  25
   --------------
-  minimum time:     2.608 ms (0.00% GC)
-  median time:      2.642 ms (0.00% GC)
-  mean time:        2.706 ms (2.20% GC)
-  maximum time:     6.236 ms (0.00% GC)
+  minimum time:     2.474 ms (0.00% GC)
+  median time:      2.504 ms (0.00% GC)
+  mean time:        2.599 ms (3.18% GC)
+  maximum time:     100.142 ms (93.67% GC)
   --------------
-  samples:          1846
+  samples:          1922
   evals/sample:     1
 ###################
+***** k = 4 *****
 ###################
-k = 4
+typeof(A) = SparseArrays.SparseMatrixCSC{Float64,Int64}
+typeof(X) = Array{Float64,2}
+size(A) = (50000, 50000)
+size(X) = (50000, 4)
 Benchmark Julia's matmul
-BenchmarkTools.Trial:
+BenchmarkTools.Trial: 
   memory estimate:  1.53 MiB
   allocs estimate:  2
   --------------
-  minimum time:     6.423 ms (0.00% GC)
-  median time:      6.582 ms (0.00% GC)
-  mean time:        6.669 ms (0.68% GC)
-  maximum time:     11.369 ms (0.00% GC)
+  minimum time:     5.233 ms (0.00% GC)
+  median time:      5.527 ms (0.00% GC)
+  mean time:        5.575 ms (2.20% GC)
+  maximum time:     76.026 ms (89.49% GC)
   --------------
-  samples:          750
+  samples:          897
   evals/sample:     1
 
 Benchmark PackedMatrixMultiVectorProducts
-BenchmarkTools.Trial:
+BenchmarkTools.Trial: 
   memory estimate:  4.58 MiB
   allocs estimate:  25
   --------------
-  minimum time:     3.320 ms (0.00% GC)
-  median time:      3.414 ms (0.00% GC)
-  mean time:        3.561 ms (3.50% GC)
-  maximum time:     7.423 ms (0.00% GC)
+  minimum time:     3.205 ms (0.00% GC)
+  median time:      3.251 ms (0.00% GC)
+  mean time:        3.393 ms (3.73% GC)
+  maximum time:     73.461 ms (93.89% GC)
   --------------
-  samples:          1403
+  samples:          1472
   evals/sample:     1
 ###################
+***** k = 8 *****
 ###################
-k = 8
+typeof(A) = SparseArrays.SparseMatrixCSC{Float64,Int64}
+typeof(X) = Array{Float64,2}
+size(A) = (50000, 50000)
+size(X) = (50000, 8)
 Benchmark Julia's matmul
-BenchmarkTools.Trial:
+BenchmarkTools.Trial: 
   memory estimate:  3.05 MiB
   allocs estimate:  2
   --------------
-  minimum time:     10.957 ms (0.00% GC)
-  median time:      11.705 ms (0.00% GC)
-  mean time:        11.993 ms (0.86% GC)
-  maximum time:     14.319 ms (5.96% GC)
+  minimum time:     10.494 ms (0.00% GC)
+  median time:      10.635 ms (0.00% GC)
+  mean time:        11.074 ms (2.36% GC)
+  maximum time:     83.274 ms (82.85% GC)
   --------------
-  samples:          417
+  samples:          452
   evals/sample:     1
 
 Benchmark PackedMatrixMultiVectorProducts
-BenchmarkTools.Trial:
+BenchmarkTools.Trial: 
   memory estimate:  9.16 MiB
   allocs estimate:  25
   --------------
-  minimum time:     5.366 ms (0.00% GC)
-  median time:      5.509 ms (0.00% GC)
-  mean time:        5.816 ms (5.62% GC)
-  maximum time:     8.199 ms (0.00% GC)
+  minimum time:     5.172 ms (0.00% GC)
+  median time:      5.385 ms (0.00% GC)
+  mean time:        6.051 ms (5.59% GC)
+  maximum time:     77.723 ms (88.67% GC)
   --------------
-  samples:          859
+  samples:          826
   evals/sample:     1
 ###################
+***** k = 16 *****
 ###################
-k = 16
+typeof(A) = SparseArrays.SparseMatrixCSC{Float64,Int64}
+typeof(X) = Array{Float64,2}
+size(A) = (50000, 50000)
+size(X) = (50000, 16)
 Benchmark Julia's matmul
-BenchmarkTools.Trial:
+BenchmarkTools.Trial: 
   memory estimate:  6.10 MiB
   allocs estimate:  2
   --------------
-  minimum time:     21.835 ms (0.00% GC)
-  median time:      22.232 ms (0.00% GC)
-  mean time:        22.779 ms (1.07% GC)
-  maximum time:     28.070 ms (0.00% GC)
+  minimum time:     21.220 ms (0.00% GC)
+  median time:      21.407 ms (0.00% GC)
+  mean time:        22.380 ms (2.51% GC)
+  maximum time:     96.325 ms (72.02% GC)
   --------------
-  samples:          220
+  samples:          224
   evals/sample:     1
 
 Benchmark PackedMatrixMultiVectorProducts
-BenchmarkTools.Trial:
+BenchmarkTools.Trial: 
   memory estimate:  18.31 MiB
   allocs estimate:  25
   --------------
-  minimum time:     14.822 ms (0.00% GC)
-  median time:      16.271 ms (6.32% GC)
-  mean time:        15.956 ms (5.04% GC)
-  maximum time:     17.190 ms (5.92% GC)
+  minimum time:     14.750 ms (0.00% GC)
+  median time:      15.667 ms (3.89% GC)
+  mean time:        15.830 ms (4.60% GC)
+  maximum time:     86.785 ms (79.79% GC)
   --------------
-  samples:          314
+  samples:          316
   evals/sample:     1
 ###################
 ```
 ## Benchmarks of `A*X'`
-Code to reproduce:
 ```
-function run_benchmarks_AmulXt(n,p,kvalues)
-    A = sprand(n,n,p)
-    for k in kvalues
-        X = randn(k,n)
-        @assert A*X' ≈ unpack(A*pack(X'))
-        println("###################")
-        println("k = $k")
-        println("Benchmark Julia's matmul")
-        b = @benchmark $A*$X'
-        display(b)
-        println("")
-        println("Benchmark PackedMatrixMultiVectorProducts")
-        b = @benchmark unpack($A*pack($X'))
-        display(b)
-        println("###################")
-    end
-end
-```
-Results:
-```
-julia> run_benchmarks_AmulXt(50_000,10/50_000,[2,4,8,16])
+##### Benchmarks for A*X' #####
+***** k = 2 *****
 ###################
-k = 2
+typeof(A) = SparseArrays.SparseMatrixCSC{Float64,Int64}
+typeof(X) = LinearAlgebra.Adjoint{Float64,Array{Float64,2}}
+size(A) = (50000, 50000)
+size(X) = (50000, 2)
 Benchmark Julia's matmul
-BenchmarkTools.Trial:
-  memory estimate:  781.67 KiB
-  allocs estimate:  9
+BenchmarkTools.Trial: 
+  memory estimate:  781.66 KiB
+  allocs estimate:  8
   --------------
-  minimum time:     17.979 s (0.00% GC)
-  median time:      17.979 s (0.00% GC)
-  mean time:        17.979 s (0.00% GC)
-  maximum time:     17.979 s (0.00% GC)
+  minimum time:     18.461 s (0.00% GC)
+  median time:      18.461 s (0.00% GC)
+  mean time:        18.461 s (0.00% GC)
+  maximum time:     18.461 s (0.00% GC)
   --------------
   samples:          1
   evals/sample:     1
 
 Benchmark PackedMatrixMultiVectorProducts
-BenchmarkTools.Trial:
+BenchmarkTools.Trial: 
   memory estimate:  2.29 MiB
-  allocs estimate:  26
+  allocs estimate:  25
   --------------
-  minimum time:     2.290 ms (0.00% GC)
-  median time:      2.320 ms (0.00% GC)
-  mean time:        2.370 ms (1.97% GC)
-  maximum time:     4.632 ms (0.00% GC)
+  minimum time:     2.274 ms (0.00% GC)
+  median time:      2.299 ms (0.00% GC)
+  mean time:        2.394 ms (3.17% GC)
+  maximum time:     74.503 ms (94.10% GC)
   --------------
-  samples:          2107
+  samples:          2086
   evals/sample:     1
 ###################
+***** k = 4 *****
 ###################
-k = 4
+typeof(A) = SparseArrays.SparseMatrixCSC{Float64,Int64}
+typeof(X) = LinearAlgebra.Adjoint{Float64,Array{Float64,2}}
+size(A) = (50000, 50000)
+size(X) = (50000, 4)
 Benchmark Julia's matmul
-BenchmarkTools.Trial:
+BenchmarkTools.Trial: 
   memory estimate:  1.53 MiB
-  allocs estimate:  9
+  allocs estimate:  8
   --------------
-  minimum time:     21.685 s (0.00% GC)
-  median time:      21.685 s (0.00% GC)
-  mean time:        21.685 s (0.00% GC)
-  maximum time:     21.685 s (0.00% GC)
+  minimum time:     22.113 s (0.00% GC)
+  median time:      22.113 s (0.00% GC)
+  mean time:        22.113 s (0.00% GC)
+  maximum time:     22.113 s (0.00% GC)
   --------------
   samples:          1
   evals/sample:     1
 
 Benchmark PackedMatrixMultiVectorProducts
-BenchmarkTools.Trial:
+BenchmarkTools.Trial: 
   memory estimate:  4.58 MiB
-  allocs estimate:  26
+  allocs estimate:  25
   --------------
-  minimum time:     3.171 ms (0.00% GC)
-  median time:      3.228 ms (0.00% GC)
-  mean time:        3.347 ms (3.30% GC)
-  maximum time:     5.691 ms (0.00% GC)
+  minimum time:     3.166 ms (0.00% GC)
+  median time:      3.204 ms (0.00% GC)
+  mean time:        3.350 ms (3.99% GC)
+  maximum time:     74.253 ms (95.22% GC)
   --------------
-  samples:          1493
+  samples:          1491
   evals/sample:     1
 ###################
+***** k = 8 *****
 ###################
-k = 8
+typeof(A) = SparseArrays.SparseMatrixCSC{Float64,Int64}
+typeof(X) = LinearAlgebra.Adjoint{Float64,Array{Float64,2}}
+size(A) = (50000, 50000)
+size(X) = (50000, 8)
 Benchmark Julia's matmul
-BenchmarkTools.Trial:
+BenchmarkTools.Trial: 
   memory estimate:  3.05 MiB
-  allocs estimate:  9
+  allocs estimate:  8
   --------------
-  minimum time:     29.122 s (0.00% GC)
-  median time:      29.122 s (0.00% GC)
-  mean time:        29.122 s (0.00% GC)
-  maximum time:     29.122 s (0.00% GC)
+  minimum time:     29.484 s (0.00% GC)
+  median time:      29.484 s (0.00% GC)
+  mean time:        29.484 s (0.00% GC)
+  maximum time:     29.484 s (0.00% GC)
   --------------
   samples:          1
   evals/sample:     1
 
 Benchmark PackedMatrixMultiVectorProducts
-BenchmarkTools.Trial:
+BenchmarkTools.Trial: 
   memory estimate:  9.16 MiB
-  allocs estimate:  26
+  allocs estimate:  25
   --------------
-  minimum time:     5.022 ms (0.00% GC)
-  median time:      5.193 ms (0.00% GC)
-  mean time:        5.440 ms (5.08% GC)
-  maximum time:     8.329 ms (0.00% GC)
+  minimum time:     5.044 ms (0.00% GC)
+  median time:      5.412 ms (0.00% GC)
+  mean time:        5.659 ms (5.32% GC)
+  maximum time:     78.152 ms (89.73% GC)
   --------------
-  samples:          919
+  samples:          883
   evals/sample:     1
 ###################
+***** k = 16 *****
 ###################
-k = 16
+typeof(A) = SparseArrays.SparseMatrixCSC{Float64,Int64}
+typeof(X) = LinearAlgebra.Adjoint{Float64,Array{Float64,2}}
+size(A) = (50000, 50000)
+size(X) = (50000, 16)
 Benchmark Julia's matmul
-BenchmarkTools.Trial:
+BenchmarkTools.Trial: 
   memory estimate:  6.10 MiB
-  allocs estimate:  9
+  allocs estimate:  8
   --------------
-  minimum time:     43.992 s (0.00% GC)
-  median time:      43.992 s (0.00% GC)
-  mean time:        43.992 s (0.00% GC)
-  maximum time:     43.992 s (0.00% GC)
+  minimum time:     44.373 s (0.00% GC)
+  median time:      44.373 s (0.00% GC)
+  mean time:        44.373 s (0.00% GC)
+  maximum time:     44.373 s (0.00% GC)
   --------------
   samples:          1
   evals/sample:     1
 
 Benchmark PackedMatrixMultiVectorProducts
-BenchmarkTools.Trial:
+BenchmarkTools.Trial: 
   memory estimate:  18.31 MiB
-  allocs estimate:  26
+  allocs estimate:  25
   --------------
-  minimum time:     15.306 ms (0.00% GC)
-  median time:      17.887 ms (5.16% GC)
-  mean time:        18.106 ms (5.10% GC)
-  maximum time:     23.741 ms (4.24% GC)
+  minimum time:     15.394 ms (0.00% GC)
+  median time:      15.709 ms (3.72% GC)
+  mean time:        16.046 ms (4.43% GC)
+  maximum time:     86.792 ms (80.86% GC)
   --------------
-  samples:          276
+  samples:          312
   evals/sample:     1
 ###################
 ```
 
 ## Benchmarks of `A'*X`
-Code to reproduce:
 ```
-function run_benchmarks_AtmulX(n,p,kvalues)
-    A = sprand(n,n,p)
-    for k in kvalues
-        X = randn(n,k)
-        @assert A'*X ≈ unpack(A'*pack(X))
-        println("###################")
-        println("k = $k")
-        println("Benchmark Julia's matmul")
-        b = @benchmark $A'*$X
-        display(b)
-        println("")
-        println("Benchmark PackedMatrixMultiVectorProducts")
-        b = @benchmark unpack($A'*pack($X))
-        display(b)
-        println("###################")
-    end
-end
-```
-Results:
-```
-julia> run_benchmarks_AtmulX(50_000,10/50_000,[2,4,8,16])
+##### Benchmarks for A'*X #####
+***** k = 2 *****
 ###################
-k = 2
+typeof(A) = LinearAlgebra.Adjoint{Float64,SparseArrays.SparseMatrixCSC{Float64,Int64}}
+typeof(X) = Array{Float64,2}
+size(A) = (50000, 50000)
+size(X) = (50000, 2)
 Benchmark Julia's matmul
-BenchmarkTools.Trial:
+BenchmarkTools.Trial: 
   memory estimate:  781.34 KiB
   allocs estimate:  3
   --------------
-  minimum time:     2.798 ms (0.00% GC)
-  median time:      2.812 ms (0.00% GC)
-  mean time:        2.844 ms (0.76% GC)
-  maximum time:     6.174 ms (0.00% GC)
+  minimum time:     2.655 ms (0.00% GC)
+  median time:      2.672 ms (0.00% GC)
+  mean time:        2.738 ms (2.13% GC)
+  maximum time:     75.142 ms (93.69% GC)
   --------------
-  samples:          1757
+  samples:          1824
   evals/sample:     1
 
 Benchmark PackedMatrixMultiVectorProducts
-BenchmarkTools.Trial:
+BenchmarkTools.Trial: 
   memory estimate:  2.29 MiB
-  allocs estimate:  27
+  allocs estimate:  26
   --------------
-  minimum time:     2.345 ms (0.00% GC)
-  median time:      2.370 ms (0.00% GC)
-  mean time:        2.440 ms (2.58% GC)
-  maximum time:     5.807 ms (0.00% GC)
+  minimum time:     2.103 ms (0.00% GC)
+  median time:      2.134 ms (0.00% GC)
+  mean time:        2.217 ms (3.38% GC)
+  maximum time:     74.620 ms (94.50% GC)
   --------------
-  samples:          2047
+  samples:          2252
   evals/sample:     1
 ###################
+***** k = 4 *****
 ###################
-k = 4
+typeof(A) = LinearAlgebra.Adjoint{Float64,SparseArrays.SparseMatrixCSC{Float64,Int64}}
+typeof(X) = Array{Float64,2}
+size(A) = (50000, 50000)
+size(X) = (50000, 4)
 Benchmark Julia's matmul
-BenchmarkTools.Trial:
+BenchmarkTools.Trial: 
   memory estimate:  1.53 MiB
   allocs estimate:  3
   --------------
-  minimum time:     5.594 ms (0.00% GC)
-  median time:      5.634 ms (0.00% GC)
-  mean time:        5.690 ms (0.81% GC)
-  maximum time:     9.199 ms (0.00% GC)
+  minimum time:     4.566 ms (0.00% GC)
+  median time:      4.628 ms (0.00% GC)
+  mean time:        4.748 ms (2.28% GC)
+  maximum time:     77.263 ms (91.09% GC)
   --------------
-  samples:          879
+  samples:          1053
   evals/sample:     1
 
 Benchmark PackedMatrixMultiVectorProducts
-BenchmarkTools.Trial:
+BenchmarkTools.Trial: 
   memory estimate:  4.58 MiB
-  allocs estimate:  27
+  allocs estimate:  26
   --------------
-  minimum time:     3.023 ms (0.00% GC)
-  median time:      3.076 ms (0.00% GC)
-  mean time:        3.230 ms (4.44% GC)
-  maximum time:     5.346 ms (0.00% GC)
+  minimum time:     2.961 ms (0.00% GC)
+  median time:      3.012 ms (0.00% GC)
+  mean time:        3.171 ms (4.53% GC)
+  maximum time:     74.258 ms (95.60% GC)
   --------------
-  samples:          1546
+  samples:          1575
   evals/sample:     1
 ###################
+***** k = 8 *****
 ###################
-k = 8
+typeof(A) = LinearAlgebra.Adjoint{Float64,SparseArrays.SparseMatrixCSC{Float64,Int64}}
+typeof(X) = Array{Float64,2}
+size(A) = (50000, 50000)
+size(X) = (50000, 8)
 Benchmark Julia's matmul
-BenchmarkTools.Trial:
+BenchmarkTools.Trial: 
   memory estimate:  3.05 MiB
   allocs estimate:  3
   --------------
-  minimum time:     9.856 ms (0.00% GC)
-  median time:      9.933 ms (0.00% GC)
-  mean time:        10.049 ms (1.02% GC)
-  maximum time:     12.819 ms (0.00% GC)
+  minimum time:     9.913 ms (0.00% GC)
+  median time:      9.968 ms (0.00% GC)
+  mean time:        10.240 ms (2.32% GC)
+  maximum time:     83.777 ms (84.46% GC)
   --------------
-  samples:          498
+  samples:          489
   evals/sample:     1
 
 Benchmark PackedMatrixMultiVectorProducts
-BenchmarkTools.Trial:
+BenchmarkTools.Trial: 
   memory estimate:  9.16 MiB
-  allocs estimate:  27
+  allocs estimate:  26
   --------------
-  minimum time:     5.089 ms (0.00% GC)
-  median time:      5.205 ms (0.00% GC)
-  mean time:        5.532 ms (5.62% GC)
-  maximum time:     8.085 ms (0.00% GC)
+  minimum time:     5.121 ms (0.00% GC)
+  median time:      5.329 ms (0.00% GC)
+  mean time:        5.614 ms (5.30% GC)
+  maximum time:     78.455 ms (89.98% GC)
   --------------
-  samples:          903
+  samples:          890
   evals/sample:     1
 ###################
+***** k = 16 *****
 ###################
-k = 16
+typeof(A) = LinearAlgebra.Adjoint{Float64,SparseArrays.SparseMatrixCSC{Float64,Int64}}
+typeof(X) = Array{Float64,2}
+size(A) = (50000, 50000)
+size(X) = (50000, 16)
 Benchmark Julia's matmul
-BenchmarkTools.Trial:
+BenchmarkTools.Trial: 
   memory estimate:  6.10 MiB
   allocs estimate:  3
   --------------
-  minimum time:     19.051 ms (0.00% GC)
-  median time:      19.384 ms (0.00% GC)
-  mean time:        19.622 ms (1.34% GC)
-  maximum time:     23.176 ms (0.00% GC)
+  minimum time:     20.244 ms (0.00% GC)
+  median time:      20.336 ms (0.00% GC)
+  mean time:        20.935 ms (2.41% GC)
+  maximum time:     95.300 ms (74.58% GC)
   --------------
-  samples:          255
+  samples:          239
   evals/sample:     1
 
 Benchmark PackedMatrixMultiVectorProducts
-BenchmarkTools.Trial:
+BenchmarkTools.Trial: 
   memory estimate:  18.31 MiB
-  allocs estimate:  27
+  allocs estimate:  26
   --------------
-  minimum time:     40.228 ms (0.00% GC)
-  median time:      42.028 ms (2.77% GC)
-  mean time:        41.902 ms (2.18% GC)
-  maximum time:     44.720 ms (0.00% GC)
+  minimum time:     39.183 ms (1.69% GC)
+  median time:      40.272 ms (1.46% GC)
+  mean time:        40.886 ms (2.92% GC)
+  maximum time:     111.801 ms (63.15% GC)
   --------------
-  samples:          120
+  samples:          123
   evals/sample:     1
 ###################
 ```
 
 ## Benchmarks of `A'*X'`
-Code to reproduce:
 ```
-function run_benchmarks_AtmulXt(n,p,kvalues)
-    A = sprand(n,n,p)
-    for k in kvalues
-        X = randn(k,n)
-        @assert A'*X' ≈ unpack(A'*pack(X'))
-        println("###################")
-        println("k = $k")
-        println("Benchmark Julia's matmul")
-        b = @benchmark $A'*$X'
-        display(b)
-        println("")
-        println("Benchmark PackedMatrixMultiVectorProducts")
-        b = @benchmark unpack($A'*pack($X'))
-        display(b)
-        println("###################")
-    end
-end
-```
-Results:
-```
-julia> run_benchmarks_AtmulXt(50_000,10/50_000,[2,4,8,16])
+##### Benchmarks for A'*X' #####
+***** k = 2 *****
 ###################
-k = 2
+typeof(A) = LinearAlgebra.Adjoint{Float64,SparseArrays.SparseMatrixCSC{Float64,Int64}}
+typeof(X) = LinearAlgebra.Adjoint{Float64,Array{Float64,2}}
+size(A) = (50000, 50000)
+size(X) = (50000, 2)
 Benchmark Julia's matmul
-BenchmarkTools.Trial:
-  memory estimate:  781.69 KiB
-  allocs estimate:  10
+BenchmarkTools.Trial: 
+  memory estimate:  781.66 KiB
+  allocs estimate:  8
   --------------
-  minimum time:     17.388 s (0.00% GC)
-  median time:      17.388 s (0.00% GC)
-  mean time:        17.388 s (0.00% GC)
-  maximum time:     17.388 s (0.00% GC)
+  minimum time:     17.376 s (0.00% GC)
+  median time:      17.376 s (0.00% GC)
+  mean time:        17.376 s (0.00% GC)
+  maximum time:     17.376 s (0.00% GC)
   --------------
   samples:          1
   evals/sample:     1
 
 Benchmark PackedMatrixMultiVectorProducts
-BenchmarkTools.Trial:
+BenchmarkTools.Trial: 
   memory estimate:  2.29 MiB
-  allocs estimate:  28
+  allocs estimate:  26
   --------------
-  minimum time:     2.123 ms (0.00% GC)
-  median time:      2.149 ms (0.00% GC)
-  mean time:        2.222 ms (2.79% GC)
-  maximum time:     4.374 ms (0.00% GC)
+  minimum time:     2.066 ms (0.00% GC)
+  median time:      2.086 ms (0.00% GC)
+  mean time:        2.134 ms (1.69% GC)
+  maximum time:     4.170 ms (0.00% GC)
   --------------
-  samples:          2247
+  samples:          2340
   evals/sample:     1
 ###################
+***** k = 4 *****
 ###################
-k = 4
+typeof(A) = LinearAlgebra.Adjoint{Float64,SparseArrays.SparseMatrixCSC{Float64,Int64}}
+typeof(X) = LinearAlgebra.Adjoint{Float64,Array{Float64,2}}
+size(A) = (50000, 50000)
+size(X) = (50000, 4)
 Benchmark Julia's matmul
-BenchmarkTools.Trial:
+BenchmarkTools.Trial: 
   memory estimate:  1.53 MiB
-  allocs estimate:  10
+  allocs estimate:  8
   --------------
-  minimum time:     21.101 s (0.00% GC)
-  median time:      21.101 s (0.00% GC)
-  mean time:        21.101 s (0.00% GC)
-  maximum time:     21.101 s (0.00% GC)
+  minimum time:     21.050 s (0.00% GC)
+  median time:      21.050 s (0.00% GC)
+  mean time:        21.050 s (0.00% GC)
+  maximum time:     21.050 s (0.00% GC)
   --------------
   samples:          1
   evals/sample:     1
 
 Benchmark PackedMatrixMultiVectorProducts
-BenchmarkTools.Trial:
+BenchmarkTools.Trial: 
   memory estimate:  4.58 MiB
-  allocs estimate:  28
+  allocs estimate:  26
   --------------
-  minimum time:     2.965 ms (0.00% GC)
-  median time:      3.005 ms (0.00% GC)
-  mean time:        3.162 ms (4.34% GC)
-  maximum time:     5.452 ms (0.00% GC)
+  minimum time:     2.892 ms (0.00% GC)
+  median time:      2.937 ms (0.00% GC)
+  mean time:        3.043 ms (2.93% GC)
+  maximum time:     5.201 ms (0.00% GC)
   --------------
-  samples:          1579
+  samples:          1642
   evals/sample:     1
 ###################
+***** k = 8 *****
 ###################
-k = 8
+typeof(A) = LinearAlgebra.Adjoint{Float64,SparseArrays.SparseMatrixCSC{Float64,Int64}}
+typeof(X) = LinearAlgebra.Adjoint{Float64,Array{Float64,2}}
+size(A) = (50000, 50000)
+size(X) = (50000, 8)
 Benchmark Julia's matmul
-BenchmarkTools.Trial:
+BenchmarkTools.Trial: 
   memory estimate:  3.05 MiB
-  allocs estimate:  10
+  allocs estimate:  8
   --------------
-  minimum time:     28.501 s (0.00% GC)
-  median time:      28.501 s (0.00% GC)
-  mean time:        28.501 s (0.00% GC)
-  maximum time:     28.501 s (0.00% GC)
+  minimum time:     28.432 s (0.00% GC)
+  median time:      28.432 s (0.00% GC)
+  mean time:        28.432 s (0.00% GC)
+  maximum time:     28.432 s (0.00% GC)
   --------------
   samples:          1
   evals/sample:     1
 
 Benchmark PackedMatrixMultiVectorProducts
-BenchmarkTools.Trial:
+BenchmarkTools.Trial: 
   memory estimate:  9.16 MiB
-  allocs estimate:  28
+  allocs estimate:  26
   --------------
-  minimum time:     4.954 ms (0.00% GC)
-  median time:      5.084 ms (0.00% GC)
-  mean time:        5.345 ms (5.54% GC)
-  maximum time:     8.156 ms (0.00% GC)
+  minimum time:     4.938 ms (0.00% GC)
+  median time:      5.170 ms (0.00% GC)
+  mean time:        5.465 ms (5.57% GC)
+  maximum time:     77.644 ms (92.12% GC)
   --------------
-  samples:          935
+  samples:          915
   evals/sample:     1
 ###################
+***** k = 16 *****
 ###################
-k = 16
+typeof(A) = LinearAlgebra.Adjoint{Float64,SparseArrays.SparseMatrixCSC{Float64,Int64}}
+typeof(X) = LinearAlgebra.Adjoint{Float64,Array{Float64,2}}
+size(A) = (50000, 50000)
+size(X) = (50000, 16)
 Benchmark Julia's matmul
-BenchmarkTools.Trial:
+BenchmarkTools.Trial: 
   memory estimate:  6.10 MiB
-  allocs estimate:  10
+  allocs estimate:  8
   --------------
-  minimum time:     43.356 s (0.00% GC)
-  median time:      43.356 s (0.00% GC)
-  mean time:        43.356 s (0.00% GC)
-  maximum time:     43.356 s (0.00% GC)
+  minimum time:     43.321 s (0.00% GC)
+  median time:      43.321 s (0.00% GC)
+  mean time:        43.321 s (0.00% GC)
+  maximum time:     43.321 s (0.00% GC)
   --------------
   samples:          1
   evals/sample:     1
 
 Benchmark PackedMatrixMultiVectorProducts
-BenchmarkTools.Trial:
+BenchmarkTools.Trial: 
   memory estimate:  18.31 MiB
-  allocs estimate:  28
+  allocs estimate:  26
   --------------
-  minimum time:     42.007 ms (0.00% GC)
-  median time:      43.619 ms (2.97% GC)
-  mean time:        44.095 ms (2.05% GC)
-  maximum time:     48.227 ms (2.57% GC)
+  minimum time:     41.628 ms (0.00% GC)
+  median time:      42.571 ms (1.62% GC)
+  mean time:        43.222 ms (2.95% GC)
+  maximum time:     116.020 ms (61.47% GC)
   --------------
-  samples:          114
+  samples:          116
   evals/sample:     1
 ###################
 ```
