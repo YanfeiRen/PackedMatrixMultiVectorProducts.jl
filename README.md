@@ -16,7 +16,7 @@ The initial reason to build this
 was to use multiple iterative methods at once and use
 the SIMD feature to do this in less time. Hence, we are interested in the case
 when `A` is sparse and `X` is dense.
-Below, we show benchmarks with for the 4 operations.
+In [benchmarks.md](benchmarks.md), we show benchmarks with for the 4 operations.
 Our current code works, however, when `A` is a dense matrix and also any
 of the specialized types in the standard LinearAlgebra package
 (`UniformScaling`, `Diagonal`, `Bidiagonal`, `Tridiagonal`, `Symmetric`,
