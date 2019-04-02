@@ -13,7 +13,7 @@ end
 # end
 
 
-function new_unpack(a::StridedVector{SArray{SZT, T, NDIMS, L}}) where {T,SZT,NDIMS,L}
+function unpack(a::StridedVector{SArray{SZT, T, NDIMS, L}}) where {T,SZT,NDIMS,L}
     k = L
     n = length(a)
     X = Matrix{T}(undef, n,k)
