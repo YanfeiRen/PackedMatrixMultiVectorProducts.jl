@@ -1,6 +1,5 @@
 function benchmark(A,X)
     @assert A*X ≈ unpack(A*pack(X))
-    println("###################")
     println("typeof(A) = $(typeof(A))")
     println("typeof(X) = $(typeof(X))")
     println("size(A) = $(size(A))")
@@ -27,8 +26,12 @@ function benchmark(n::Int64,p::Float64,k::Int64)
 end
 
 function benchmark()
+    kvalues = [2,4,8,16]
     n = 50_000
     p = 10/50_000
-    k = 16
-    benchmark(n,p,k)
+    for k in kvalues
+        println("###################")
+        println("k = $k")
+        benchmark(n,p,k)
+    end
 end
