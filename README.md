@@ -2,6 +2,9 @@ Linux and macOS: [![Build Status](https://travis-ci.org/YanfeiRen/PackedMatrixMu
 
 [![Coverage Status](https://coveralls.io/repos/YanfeiRen/PackedMatrixMultiVectorProducts.jl/badge.svg?branch=master)](https://coveralls.io/r/YanfeiRen/PackedMatrixMultiVectorProducts.jl?branch=master)
 
+
+[![codecov.io](http://codecov.io/github/YanfeiRen/PackedMatrixMultiVectorProducts.jl)]((http://codecov.io/github/YanfeiRen/PackedMatrixMultiVectorProducts.jl?branch=master)
+
 # PackedMatrixMultiVectorProducts.jl
 
 The goal of this package is to perform operations such
