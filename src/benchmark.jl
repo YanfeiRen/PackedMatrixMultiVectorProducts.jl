@@ -1,5 +1,6 @@
 function benchmark(A,X)
     @assert A*X ≈ unpack(A*pack(X))
+    println("###################")
     println("typeof(A) = $(typeof(A))")
     println("typeof(X) = $(typeof(X))")
     println("size(A) = $(size(A))")
@@ -29,9 +30,34 @@ function benchmark()
     kvalues = [2,4,8,16]
     n = 50_000
     p = 10/50_000
+    A = sprand(n,n,p)
+    At = A'
+    
+    println("##### Benchmarks for A*X #####")
     for k in kvalues
-        println("###################")
-        println("k = $k")
-        benchmark(n,p,k)
+        X = randn(n,k)
+        println("***** k = $k *****")
+        benchmark(A,X)
+    end
+    
+    println("##### Benchmarks for A*X' #####")
+    for k in kvalues
+        Xt = randn(k,n)'
+        println("***** k = $k *****")
+        benchmark(A,Xt)
+    end
+    
+    println("##### Benchmarks for A'*X #####")
+    for k in kvalues
+        X = randn(n,k)
+        println("***** k = $k *****")
+        benchmark(At,X)
+    end
+    
+    println("##### Benchmarks for A'*X' #####")
+    for k in kvalues
+        Xt = randn(k,n)'
+        println("***** k = $k *****")
+        benchmark(At,Xt)
     end
 end
