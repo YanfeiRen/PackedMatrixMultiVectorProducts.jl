@@ -18,25 +18,25 @@ BenchmarkTools.Trial:
   memory estimate:  781.33 KiB
   allocs estimate:  2
   --------------
-  minimum time:     3.050 ms (0.00% GC)
-  median time:      3.067 ms (0.00% GC)
-  mean time:        3.175 ms (2.47% GC)
-  maximum time:     100.093 ms (92.80% GC)
+  minimum time:     2.990 ms (0.00% GC)
+  median time:      3.005 ms (0.00% GC)
+  mean time:        3.086 ms (1.82% GC)
+  maximum time:     74.153 ms (90.40% GC)
   --------------
-  samples:          1574
+  samples:          1619
   evals/sample:     1
 
 Benchmark PackedMatrixMultiVectorProducts
 BenchmarkTools.Trial: 
   memory estimate:  2.29 MiB
-  allocs estimate:  25
+  allocs estimate:  23
   --------------
-  minimum time:     2.474 ms (0.00% GC)
-  median time:      2.504 ms (0.00% GC)
-  mean time:        2.599 ms (3.18% GC)
-  maximum time:     100.142 ms (93.67% GC)
+  minimum time:     1.704 ms (0.00% GC)
+  median time:      1.902 ms (0.00% GC)
+  mean time:        1.916 ms (2.83% GC)
+  maximum time:     73.163 ms (92.01% GC)
   --------------
-  samples:          1922
+  samples:          2606
   evals/sample:     1
 ###################
 ***** k = 4 *****
@@ -50,25 +50,25 @@ BenchmarkTools.Trial:
   memory estimate:  1.53 MiB
   allocs estimate:  2
   --------------
-  minimum time:     5.233 ms (0.00% GC)
-  median time:      5.527 ms (0.00% GC)
-  mean time:        5.575 ms (2.20% GC)
-  maximum time:     76.026 ms (89.49% GC)
+  minimum time:     5.168 ms (0.00% GC)
+  median time:      5.192 ms (0.00% GC)
+  mean time:        5.298 ms (1.56% GC)
+  maximum time:     59.448 ms (86.74% GC)
   --------------
-  samples:          897
+  samples:          944
   evals/sample:     1
 
 Benchmark PackedMatrixMultiVectorProducts
 BenchmarkTools.Trial: 
   memory estimate:  4.58 MiB
-  allocs estimate:  25
+  allocs estimate:  23
   --------------
-  minimum time:     3.205 ms (0.00% GC)
-  median time:      3.251 ms (0.00% GC)
-  mean time:        3.393 ms (3.73% GC)
-  maximum time:     73.461 ms (93.89% GC)
+  minimum time:     2.086 ms (0.00% GC)
+  median time:      2.147 ms (0.00% GC)
+  mean time:        2.239 ms (3.75% GC)
+  maximum time:     54.181 ms (95.31% GC)
   --------------
-  samples:          1472
+  samples:          2230
   evals/sample:     1
 ###################
 ***** k = 8 *****
@@ -82,25 +82,25 @@ BenchmarkTools.Trial:
   memory estimate:  3.05 MiB
   allocs estimate:  2
   --------------
-  minimum time:     10.494 ms (0.00% GC)
-  median time:      10.635 ms (0.00% GC)
-  mean time:        11.074 ms (2.36% GC)
-  maximum time:     83.274 ms (82.85% GC)
+  minimum time:     10.356 ms (0.00% GC)
+  median time:      11.445 ms (0.00% GC)
+  mean time:        11.497 ms (1.62% GC)
+  maximum time:     67.277 ms (77.39% GC)
   --------------
-  samples:          452
+  samples:          435
   evals/sample:     1
 
 Benchmark PackedMatrixMultiVectorProducts
 BenchmarkTools.Trial: 
   memory estimate:  9.16 MiB
-  allocs estimate:  25
+  allocs estimate:  23
   --------------
-  minimum time:     5.172 ms (0.00% GC)
-  median time:      5.385 ms (0.00% GC)
-  mean time:        6.051 ms (5.59% GC)
-  maximum time:     77.723 ms (88.67% GC)
+  minimum time:     3.055 ms (0.00% GC)
+  median time:      3.335 ms (0.00% GC)
+  mean time:        3.420 ms (5.37% GC)
+  maximum time:     58.206 ms (89.67% GC)
   --------------
-  samples:          826
+  samples:          1461
   evals/sample:     1
 ###################
 ***** k = 16 *****
@@ -114,25 +114,25 @@ BenchmarkTools.Trial:
   memory estimate:  6.10 MiB
   allocs estimate:  2
   --------------
-  minimum time:     21.220 ms (0.00% GC)
-  median time:      21.407 ms (0.00% GC)
-  mean time:        22.380 ms (2.51% GC)
-  maximum time:     96.325 ms (72.02% GC)
+  minimum time:     20.869 ms (0.00% GC)
+  median time:      22.566 ms (0.00% GC)
+  mean time:        22.546 ms (2.12% GC)
+  maximum time:     79.146 ms (66.33% GC)
   --------------
-  samples:          224
+  samples:          222
   evals/sample:     1
 
 Benchmark PackedMatrixMultiVectorProducts
 BenchmarkTools.Trial: 
   memory estimate:  18.31 MiB
-  allocs estimate:  25
+  allocs estimate:  23
   --------------
-  minimum time:     14.750 ms (0.00% GC)
-  median time:      15.667 ms (3.89% GC)
-  mean time:        15.830 ms (4.60% GC)
-  maximum time:     86.785 ms (79.79% GC)
+  minimum time:     10.186 ms (0.00% GC)
+  median time:      12.182 ms (4.73% GC)
+  mean time:        11.967 ms (5.56% GC)
+  maximum time:     65.624 ms (79.54% GC)
   --------------
-  samples:          316
+  samples:          418
   evals/sample:     1
 ###################
 ```
@@ -150,10 +150,10 @@ BenchmarkTools.Trial:
   memory estimate:  781.66 KiB
   allocs estimate:  8
   --------------
-  minimum time:     18.461 s (0.00% GC)
-  median time:      18.461 s (0.00% GC)
-  mean time:        18.461 s (0.00% GC)
-  maximum time:     18.461 s (0.00% GC)
+  minimum time:     18.472 s (0.00% GC)
+  median time:      18.472 s (0.00% GC)
+  mean time:        18.472 s (0.00% GC)
+  maximum time:     18.472 s (0.00% GC)
   --------------
   samples:          1
   evals/sample:     1
@@ -161,14 +161,14 @@ BenchmarkTools.Trial:
 Benchmark PackedMatrixMultiVectorProducts
 BenchmarkTools.Trial: 
   memory estimate:  2.29 MiB
-  allocs estimate:  25
+  allocs estimate:  23
   --------------
-  minimum time:     2.274 ms (0.00% GC)
-  median time:      2.299 ms (0.00% GC)
-  mean time:        2.394 ms (3.17% GC)
-  maximum time:     74.503 ms (94.10% GC)
+  minimum time:     1.663 ms (0.00% GC)
+  median time:      1.686 ms (0.00% GC)
+  mean time:        1.757 ms (2.83% GC)
+  maximum time:     56.947 ms (93.21% GC)
   --------------
-  samples:          2086
+  samples:          2842
   evals/sample:     1
 ###################
 ***** k = 4 *****
@@ -182,10 +182,10 @@ BenchmarkTools.Trial:
   memory estimate:  1.53 MiB
   allocs estimate:  8
   --------------
-  minimum time:     22.113 s (0.00% GC)
-  median time:      22.113 s (0.00% GC)
-  mean time:        22.113 s (0.00% GC)
-  maximum time:     22.113 s (0.00% GC)
+  minimum time:     22.167 s (0.00% GC)
+  median time:      22.167 s (0.00% GC)
+  mean time:        22.167 s (0.00% GC)
+  maximum time:     22.167 s (0.00% GC)
   --------------
   samples:          1
   evals/sample:     1
@@ -193,14 +193,14 @@ BenchmarkTools.Trial:
 Benchmark PackedMatrixMultiVectorProducts
 BenchmarkTools.Trial: 
   memory estimate:  4.58 MiB
-  allocs estimate:  25
+  allocs estimate:  23
   --------------
-  minimum time:     3.166 ms (0.00% GC)
-  median time:      3.204 ms (0.00% GC)
-  mean time:        3.350 ms (3.99% GC)
-  maximum time:     74.253 ms (95.22% GC)
+  minimum time:     2.203 ms (0.00% GC)
+  median time:      2.240 ms (0.00% GC)
+  mean time:        2.468 ms (6.12% GC)
+  maximum time:     77.481 ms (96.13% GC)
   --------------
-  samples:          1491
+  samples:          2024
   evals/sample:     1
 ###################
 ***** k = 8 *****
@@ -214,10 +214,10 @@ BenchmarkTools.Trial:
   memory estimate:  3.05 MiB
   allocs estimate:  8
   --------------
-  minimum time:     29.484 s (0.00% GC)
-  median time:      29.484 s (0.00% GC)
-  mean time:        29.484 s (0.00% GC)
-  maximum time:     29.484 s (0.00% GC)
+  minimum time:     29.584 s (0.00% GC)
+  median time:      29.584 s (0.00% GC)
+  mean time:        29.584 s (0.00% GC)
+  maximum time:     29.584 s (0.00% GC)
   --------------
   samples:          1
   evals/sample:     1
@@ -225,14 +225,14 @@ BenchmarkTools.Trial:
 Benchmark PackedMatrixMultiVectorProducts
 BenchmarkTools.Trial: 
   memory estimate:  9.16 MiB
-  allocs estimate:  25
+  allocs estimate:  23
   --------------
-  minimum time:     5.044 ms (0.00% GC)
-  median time:      5.412 ms (0.00% GC)
-  mean time:        5.659 ms (5.32% GC)
-  maximum time:     78.152 ms (89.73% GC)
+  minimum time:     3.196 ms (0.00% GC)
+  median time:      3.584 ms (0.00% GC)
+  mean time:        3.859 ms (7.62% GC)
+  maximum time:     84.567 ms (88.14% GC)
   --------------
-  samples:          883
+  samples:          1294
   evals/sample:     1
 ###################
 ***** k = 16 *****
@@ -246,10 +246,10 @@ BenchmarkTools.Trial:
   memory estimate:  6.10 MiB
   allocs estimate:  8
   --------------
-  minimum time:     44.373 s (0.00% GC)
-  median time:      44.373 s (0.00% GC)
-  mean time:        44.373 s (0.00% GC)
-  maximum time:     44.373 s (0.00% GC)
+  minimum time:     44.763 s (0.00% GC)
+  median time:      44.763 s (0.00% GC)
+  mean time:        44.763 s (0.00% GC)
+  maximum time:     44.763 s (0.00% GC)
   --------------
   samples:          1
   evals/sample:     1
@@ -257,14 +257,14 @@ BenchmarkTools.Trial:
 Benchmark PackedMatrixMultiVectorProducts
 BenchmarkTools.Trial: 
   memory estimate:  18.31 MiB
-  allocs estimate:  25
+  allocs estimate:  23
   --------------
-  minimum time:     15.394 ms (0.00% GC)
-  median time:      15.709 ms (3.72% GC)
-  mean time:        16.046 ms (4.43% GC)
-  maximum time:     86.792 ms (80.86% GC)
+  minimum time:     13.673 ms (0.00% GC)
+  median time:      15.872 ms (6.00% GC)
+  mean time:        15.656 ms (6.63% GC)
+  maximum time:     95.191 ms (78.48% GC)
   --------------
-  samples:          312
+  samples:          320
   evals/sample:     1
 ###################
 ```
@@ -283,25 +283,25 @@ BenchmarkTools.Trial:
   memory estimate:  781.34 KiB
   allocs estimate:  3
   --------------
-  minimum time:     2.655 ms (0.00% GC)
-  median time:      2.672 ms (0.00% GC)
-  mean time:        2.738 ms (2.13% GC)
-  maximum time:     75.142 ms (93.69% GC)
+  minimum time:     2.401 ms (0.00% GC)
+  median time:      2.433 ms (0.00% GC)
+  mean time:        2.501 ms (2.29% GC)
+  maximum time:     80.782 ms (92.03% GC)
   --------------
-  samples:          1824
+  samples:          1997
   evals/sample:     1
 
 Benchmark PackedMatrixMultiVectorProducts
 BenchmarkTools.Trial: 
   memory estimate:  2.29 MiB
-  allocs estimate:  26
+  allocs estimate:  24
   --------------
-  minimum time:     2.103 ms (0.00% GC)
-  median time:      2.134 ms (0.00% GC)
-  mean time:        2.217 ms (3.38% GC)
-  maximum time:     74.620 ms (94.50% GC)
+  minimum time:     1.632 ms (0.00% GC)
+  median time:      1.654 ms (0.00% GC)
+  mean time:        1.746 ms (4.03% GC)
+  maximum time:     80.467 ms (92.68% GC)
   --------------
-  samples:          2252
+  samples:          2857
   evals/sample:     1
 ###################
 ***** k = 4 *****
@@ -315,25 +315,25 @@ BenchmarkTools.Trial:
   memory estimate:  1.53 MiB
   allocs estimate:  3
   --------------
-  minimum time:     4.566 ms (0.00% GC)
-  median time:      4.628 ms (0.00% GC)
-  mean time:        4.748 ms (2.28% GC)
-  maximum time:     77.263 ms (91.09% GC)
+  minimum time:     4.853 ms (0.00% GC)
+  median time:      4.870 ms (0.00% GC)
+  mean time:        5.011 ms (2.33% GC)
+  maximum time:     83.939 ms (88.79% GC)
   --------------
-  samples:          1053
+  samples:          998
   evals/sample:     1
 
 Benchmark PackedMatrixMultiVectorProducts
 BenchmarkTools.Trial: 
   memory estimate:  4.58 MiB
-  allocs estimate:  26
+  allocs estimate:  24
   --------------
-  minimum time:     2.961 ms (0.00% GC)
-  median time:      3.012 ms (0.00% GC)
-  mean time:        3.171 ms (4.53% GC)
-  maximum time:     74.258 ms (95.60% GC)
+  minimum time:     2.040 ms (0.00% GC)
+  median time:      2.082 ms (0.00% GC)
+  mean time:        2.249 ms (6.28% GC)
+  maximum time:     77.342 ms (96.75% GC)
   --------------
-  samples:          1575
+  samples:          2219
   evals/sample:     1
 ###################
 ***** k = 8 *****
@@ -347,25 +347,25 @@ BenchmarkTools.Trial:
   memory estimate:  3.05 MiB
   allocs estimate:  3
   --------------
-  minimum time:     9.913 ms (0.00% GC)
-  median time:      9.968 ms (0.00% GC)
-  mean time:        10.240 ms (2.32% GC)
-  maximum time:     83.777 ms (84.46% GC)
+  minimum time:     10.282 ms (0.00% GC)
+  median time:      10.450 ms (0.00% GC)
+  mean time:        11.046 ms (2.49% GC)
+  maximum time:     96.929 ms (81.70% GC)
   --------------
-  samples:          489
+  samples:          453
   evals/sample:     1
 
 Benchmark PackedMatrixMultiVectorProducts
 BenchmarkTools.Trial: 
   memory estimate:  9.16 MiB
-  allocs estimate:  26
+  allocs estimate:  24
   --------------
-  minimum time:     5.121 ms (0.00% GC)
-  median time:      5.329 ms (0.00% GC)
-  mean time:        5.614 ms (5.30% GC)
-  maximum time:     78.455 ms (89.98% GC)
+  minimum time:     3.357 ms (0.00% GC)
+  median time:      3.780 ms (0.00% GC)
+  mean time:        4.048 ms (9.03% GC)
+  maximum time:     84.155 ms (88.20% GC)
   --------------
-  samples:          890
+  samples:          1234
   evals/sample:     1
 ###################
 ***** k = 16 *****
@@ -379,25 +379,25 @@ BenchmarkTools.Trial:
   memory estimate:  6.10 MiB
   allocs estimate:  3
   --------------
-  minimum time:     20.244 ms (0.00% GC)
-  median time:      20.336 ms (0.00% GC)
-  mean time:        20.935 ms (2.41% GC)
-  maximum time:     95.300 ms (74.58% GC)
+  minimum time:     18.111 ms (0.00% GC)
+  median time:      19.129 ms (0.00% GC)
+  mean time:        20.057 ms (2.95% GC)
+  maximum time:     101.556 ms (73.62% GC)
   --------------
-  samples:          239
+  samples:          250
   evals/sample:     1
 
 Benchmark PackedMatrixMultiVectorProducts
 BenchmarkTools.Trial: 
   memory estimate:  18.31 MiB
-  allocs estimate:  26
+  allocs estimate:  24
   --------------
-  minimum time:     39.183 ms (1.69% GC)
-  median time:      40.272 ms (1.46% GC)
-  mean time:        40.886 ms (2.92% GC)
-  maximum time:     111.801 ms (63.15% GC)
+  minimum time:     36.908 ms (0.00% GC)
+  median time:      39.248 ms (2.60% GC)
+  mean time:        40.527 ms (3.90% GC)
+  maximum time:     118.482 ms (62.84% GC)
   --------------
-  samples:          123
+  samples:          124
   evals/sample:     1
 ###################
 ```
@@ -416,10 +416,10 @@ BenchmarkTools.Trial:
   memory estimate:  781.66 KiB
   allocs estimate:  8
   --------------
-  minimum time:     17.376 s (0.00% GC)
-  median time:      17.376 s (0.00% GC)
-  mean time:        17.376 s (0.00% GC)
-  maximum time:     17.376 s (0.00% GC)
+  minimum time:     17.557 s (0.00% GC)
+  median time:      17.557 s (0.00% GC)
+  mean time:        17.557 s (0.00% GC)
+  maximum time:     17.557 s (0.00% GC)
   --------------
   samples:          1
   evals/sample:     1
@@ -427,14 +427,14 @@ BenchmarkTools.Trial:
 Benchmark PackedMatrixMultiVectorProducts
 BenchmarkTools.Trial: 
   memory estimate:  2.29 MiB
-  allocs estimate:  26
+  allocs estimate:  24
   --------------
-  minimum time:     2.066 ms (0.00% GC)
-  median time:      2.086 ms (0.00% GC)
-  mean time:        2.134 ms (1.69% GC)
-  maximum time:     4.170 ms (0.00% GC)
+  minimum time:     1.545 ms (0.00% GC)
+  median time:      1.571 ms (0.00% GC)
+  mean time:        1.624 ms (2.48% GC)
+  maximum time:     6.011 ms (0.00% GC)
   --------------
-  samples:          2340
+  samples:          3073
   evals/sample:     1
 ###################
 ***** k = 4 *****
@@ -448,10 +448,10 @@ BenchmarkTools.Trial:
   memory estimate:  1.53 MiB
   allocs estimate:  8
   --------------
-  minimum time:     21.050 s (0.00% GC)
-  median time:      21.050 s (0.00% GC)
-  mean time:        21.050 s (0.00% GC)
-  maximum time:     21.050 s (0.00% GC)
+  minimum time:     21.290 s (0.00% GC)
+  median time:      21.290 s (0.00% GC)
+  mean time:        21.290 s (0.00% GC)
+  maximum time:     21.290 s (0.00% GC)
   --------------
   samples:          1
   evals/sample:     1
@@ -459,14 +459,14 @@ BenchmarkTools.Trial:
 Benchmark PackedMatrixMultiVectorProducts
 BenchmarkTools.Trial: 
   memory estimate:  4.58 MiB
-  allocs estimate:  26
+  allocs estimate:  24
   --------------
-  minimum time:     2.892 ms (0.00% GC)
-  median time:      2.937 ms (0.00% GC)
-  mean time:        3.043 ms (2.93% GC)
-  maximum time:     5.201 ms (0.00% GC)
+  minimum time:     1.789 ms (0.00% GC)
+  median time:      1.842 ms (0.00% GC)
+  mean time:        1.962 ms (5.05% GC)
+  maximum time:     6.496 ms (0.00% GC)
   --------------
-  samples:          1642
+  samples:          2544
   evals/sample:     1
 ###################
 ***** k = 8 *****
@@ -480,10 +480,10 @@ BenchmarkTools.Trial:
   memory estimate:  3.05 MiB
   allocs estimate:  8
   --------------
-  minimum time:     28.432 s (0.00% GC)
-  median time:      28.432 s (0.00% GC)
-  mean time:        28.432 s (0.00% GC)
-  maximum time:     28.432 s (0.00% GC)
+  minimum time:     28.655 s (0.00% GC)
+  median time:      28.655 s (0.00% GC)
+  mean time:        28.655 s (0.00% GC)
+  maximum time:     28.655 s (0.00% GC)
   --------------
   samples:          1
   evals/sample:     1
@@ -491,14 +491,14 @@ BenchmarkTools.Trial:
 Benchmark PackedMatrixMultiVectorProducts
 BenchmarkTools.Trial: 
   memory estimate:  9.16 MiB
-  allocs estimate:  26
+  allocs estimate:  24
   --------------
-  minimum time:     4.938 ms (0.00% GC)
-  median time:      5.170 ms (0.00% GC)
-  mean time:        5.465 ms (5.57% GC)
-  maximum time:     77.644 ms (92.12% GC)
+  minimum time:     2.995 ms (0.00% GC)
+  median time:      3.355 ms (0.00% GC)
+  mean time:        3.659 ms (9.16% GC)
+  maximum time:     80.682 ms (93.72% GC)
   --------------
-  samples:          915
+  samples:          1365
   evals/sample:     1
 ###################
 ***** k = 16 *****
@@ -512,10 +512,10 @@ BenchmarkTools.Trial:
   memory estimate:  6.10 MiB
   allocs estimate:  8
   --------------
-  minimum time:     43.321 s (0.00% GC)
-  median time:      43.321 s (0.00% GC)
-  mean time:        43.321 s (0.00% GC)
-  maximum time:     43.321 s (0.00% GC)
+  minimum time:     43.607 s (0.00% GC)
+  median time:      43.607 s (0.00% GC)
+  mean time:        43.607 s (0.00% GC)
+  maximum time:     43.607 s (0.00% GC)
   --------------
   samples:          1
   evals/sample:     1
@@ -523,14 +523,14 @@ BenchmarkTools.Trial:
 Benchmark PackedMatrixMultiVectorProducts
 BenchmarkTools.Trial: 
   memory estimate:  18.31 MiB
-  allocs estimate:  26
+  allocs estimate:  24
   --------------
-  minimum time:     41.628 ms (0.00% GC)
-  median time:      42.571 ms (1.62% GC)
-  mean time:        43.222 ms (2.95% GC)
-  maximum time:     116.020 ms (61.47% GC)
+  minimum time:     38.680 ms (2.61% GC)
+  median time:      40.496 ms (2.45% GC)
+  mean time:        41.055 ms (3.52% GC)
+  maximum time:     117.588 ms (62.71% GC)
   --------------
-  samples:          116
+  samples:          122
   evals/sample:     1
 ###################
 ```
