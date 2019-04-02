@@ -32,6 +32,7 @@ number of columns.
 using Pkg
 Pkg.clone("https://github.com/YanfeiRen/PackedMatrixMultiVectorProducts.jl")
 using PackedMatrixMultiVectorProducts
+using SparseArrays
 A = sprand(100,100,0.1)
 X = randn(100,8)
 YJulia = A*X
