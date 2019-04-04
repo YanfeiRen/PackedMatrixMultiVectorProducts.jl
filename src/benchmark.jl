@@ -18,7 +18,7 @@ function benchmark(A,X)
     s3 = BenchmarkTools.prettytime(m3)
     
     typeof(X) <: Adjoint ? sizex = size(X.parent) : sizex = size(X)
-    @printf("(%d,%d)\t(%d,%d)\t\t%s\t%s\t\t%s\t%.2f\t%.2f\n",
+    @printf("(%d,%d)\t(%d,%d)\t\t%s\t%s\t%s\t%.2f\t\t%.2f\n",
             size(A)...,
             sizex...,
             s1, s2, s3,
@@ -45,10 +45,10 @@ function mybenchmark(n::Int64)
     
     @printf("size(A)\t\tsize(x)\t\tmul!_time\tMV_time\t\tPMV_time\tMV_speedup\tPMV_speedup\n")   
     
-#     for k in kvalues
-#         X = randn(n,k)
-#         benchmark(A,X)
-#     end
+    for k in kvalues
+        X = randn(n,k)
+        benchmark(A,X)
+    end
     
     for k in kvalues
         Xt = randn(k,n)'
