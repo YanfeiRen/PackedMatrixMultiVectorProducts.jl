@@ -37,7 +37,7 @@ function benchmark(n::Int64,p::Float64,k::Int64)
     benchmark(At,Xt)
 end
 
-function mybenchmark(n::Int64)
+function benchmark(n::Int64)
     kvalues = [2,4,8,16]
     @assert n>=100 #just to get a reasonable size network
     p = 10/n
