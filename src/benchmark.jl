@@ -1,3 +1,4 @@
+using Printf
 function benchmark(A,X)
     @assert A*X ≈ unpack(A*pack(X))
     
