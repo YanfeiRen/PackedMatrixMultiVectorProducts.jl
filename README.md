@@ -1,6 +1,6 @@
 Linux and macOS: [![Build Status](https://travis-ci.org/YanfeiRen/PackedMatrixMultiVectorProducts.jl.svg?branch=master)](https://travis-ci.org/YanfeiRen/PackedMatrixMultiVectorProducts.jl)
 
-[![Coverage Status](https://coveralls.io/repos/YanfeiRen/PackedMatrixMultiVectorProducts.jl/badge.svg?branch=master)](https://coveralls.io/r/YanfeiRen/PackedMatrixMultiVectorProducts.jl?branch=master)
+[![Coverage Status](https://coveralls.io/repos/nassarhuda/PackedMatrixMultiVectorProducts.jl/badge.svg?branch=master)](https://coveralls.io/r/nassarhuda/PackedMatrixMultiVectorProducts.jl?branch=master)
 
 # PackedMatrixMultiVectorProducts.jl
 
