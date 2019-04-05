@@ -40,7 +40,8 @@ function benchmark(A,X)
 
     # return array of all info needed
     typeof(X) <: Adjoint ? sizex = size(X.parent) : sizex = size(X)    
-    return Any[size(A),sizex, s1,s2,round(r1,digits=2),
+    typeof(A) <: Adjoint ? typeA = "Adjoint" : typeA = "SparseMatrixCSC"    
+    return Any[size(A),typeA, sizex, s1,s2,round(r1,digits=2),
                               s3,s4,round(r2,digits=2)]
 end
 
@@ -51,7 +52,7 @@ function benchmark(n::Int64)
     A = sprand(n,n,p)
     At = A'
     rows = []
-    push!(rows,Any["size(A)","size(x)","mul!(Y,A,X)","mul!(y,A,x)","Ratio",
+    push!(rows,Any["size(A)","typeof(A)","size(x)","mul!(Y,A,X)","mul!(y,A,x)","Ratio",
                                         "Julia's A*X","unpack(A*pack(X))","Ratio"])
 
     for k in kvalues
