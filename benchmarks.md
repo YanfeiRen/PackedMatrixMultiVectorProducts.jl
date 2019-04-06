@@ -269,271 +269,48 @@ BenchmarkTools.Trial:
 ###################
 ```
 
-## Benchmarks of `A'*X`
+## n = 100
 ```
-##### Benchmarks for A'*X #####
-***** k = 2 *****
-###################
-typeof(A) = LinearAlgebra.Adjoint{Float64,SparseArrays.SparseMatrixCSC{Float64,Int64}}
-typeof(X) = Array{Float64,2}
-size(A) = (50000, 50000)
-size(X) = (50000, 2)
-Benchmark Julia's matmul
-BenchmarkTools.Trial: 
-  memory estimate:  781.34 KiB
-  allocs estimate:  3
-  --------------
-  minimum time:     2.401 ms (0.00% GC)
-  median time:      2.433 ms (0.00% GC)
-  mean time:        2.501 ms (2.29% GC)
-  maximum time:     80.782 ms (92.03% GC)
-  --------------
-  samples:          1997
-  evals/sample:     1
-
-Benchmark PackedMatrixMultiVectorProducts
-BenchmarkTools.Trial: 
-  memory estimate:  2.29 MiB
-  allocs estimate:  24
-  --------------
-  minimum time:     1.632 ms (0.00% GC)
-  median time:      1.654 ms (0.00% GC)
-  mean time:        1.746 ms (4.03% GC)
-  maximum time:     80.467 ms (92.68% GC)
-  --------------
-  samples:          2857
-  evals/sample:     1
-###################
-***** k = 4 *****
-###################
-typeof(A) = LinearAlgebra.Adjoint{Float64,SparseArrays.SparseMatrixCSC{Float64,Int64}}
-typeof(X) = Array{Float64,2}
-size(A) = (50000, 50000)
-size(X) = (50000, 4)
-Benchmark Julia's matmul
-BenchmarkTools.Trial: 
-  memory estimate:  1.53 MiB
-  allocs estimate:  3
-  --------------
-  minimum time:     4.853 ms (0.00% GC)
-  median time:      4.870 ms (0.00% GC)
-  mean time:        5.011 ms (2.33% GC)
-  maximum time:     83.939 ms (88.79% GC)
-  --------------
-  samples:          998
-  evals/sample:     1
-
-Benchmark PackedMatrixMultiVectorProducts
-BenchmarkTools.Trial: 
-  memory estimate:  4.58 MiB
-  allocs estimate:  24
-  --------------
-  minimum time:     2.040 ms (0.00% GC)
-  median time:      2.082 ms (0.00% GC)
-  mean time:        2.249 ms (6.28% GC)
-  maximum time:     77.342 ms (96.75% GC)
-  --------------
-  samples:          2219
-  evals/sample:     1
-###################
-***** k = 8 *****
-###################
-typeof(A) = LinearAlgebra.Adjoint{Float64,SparseArrays.SparseMatrixCSC{Float64,Int64}}
-typeof(X) = Array{Float64,2}
-size(A) = (50000, 50000)
-size(X) = (50000, 8)
-Benchmark Julia's matmul
-BenchmarkTools.Trial: 
-  memory estimate:  3.05 MiB
-  allocs estimate:  3
-  --------------
-  minimum time:     10.282 ms (0.00% GC)
-  median time:      10.450 ms (0.00% GC)
-  mean time:        11.046 ms (2.49% GC)
-  maximum time:     96.929 ms (81.70% GC)
-  --------------
-  samples:          453
-  evals/sample:     1
-
-Benchmark PackedMatrixMultiVectorProducts
-BenchmarkTools.Trial: 
-  memory estimate:  9.16 MiB
-  allocs estimate:  24
-  --------------
-  minimum time:     3.357 ms (0.00% GC)
-  median time:      3.780 ms (0.00% GC)
-  mean time:        4.048 ms (9.03% GC)
-  maximum time:     84.155 ms (88.20% GC)
-  --------------
-  samples:          1234
-  evals/sample:     1
-###################
-***** k = 16 *****
-###################
-typeof(A) = LinearAlgebra.Adjoint{Float64,SparseArrays.SparseMatrixCSC{Float64,Int64}}
-typeof(X) = Array{Float64,2}
-size(A) = (50000, 50000)
-size(X) = (50000, 16)
-Benchmark Julia's matmul
-BenchmarkTools.Trial: 
-  memory estimate:  6.10 MiB
-  allocs estimate:  3
-  --------------
-  minimum time:     18.111 ms (0.00% GC)
-  median time:      19.129 ms (0.00% GC)
-  mean time:        20.057 ms (2.95% GC)
-  maximum time:     101.556 ms (73.62% GC)
-  --------------
-  samples:          250
-  evals/sample:     1
-
-Benchmark PackedMatrixMultiVectorProducts
-BenchmarkTools.Trial: 
-  memory estimate:  18.31 MiB
-  allocs estimate:  24
-  --------------
-  minimum time:     36.908 ms (0.00% GC)
-  median time:      39.248 ms (2.60% GC)
-  mean time:        40.527 ms (3.90% GC)
-  maximum time:     118.482 ms (62.84% GC)
-  --------------
-  samples:          124
-  evals/sample:     1
-###################
+julia> PackedMatrixMultiVectorProducts.benchmark(100)
+| size(A)    | typeof(A)       | size(x)   | mul!(Y,A,X) | mul!(y,A,x) | Ratio | Julia's A*X | unpack(A*pack(X)) | Ratio |
+|:---------- |:--------------- |:--------- | -----------:| -----------:| -----:| -----------:| -----------------:| -----:|
+| (100, 100) | SparseMatrixCSC | (100, 2)  |    2.560 μs |    1.206 μs |  2.12 |    2.714 μs |          3.385 μs |   0.8 |
+| (100, 100) | SparseMatrixCSC | (100, 4)  |    5.116 μs |    1.423 μs |  3.59 |    5.600 μs |          5.071 μs |   1.1 |
+| (100, 100) | SparseMatrixCSC | (100, 8)  |   10.542 μs |    2.250 μs |  4.68 |   11.419 μs |          7.293 μs |  1.57 |
+| (100, 100) | SparseMatrixCSC | (100, 16) |   20.438 μs |    8.015 μs |  2.55 |   22.093 μs |         16.069 μs |  1.37 |
+| (100, 100) | SparseMatrixCSC | (2, 100)  |   92.403 μs |    1.244 μs | 74.27 |   86.612 μs |          3.248 μs | 26.66 |
+| (100, 100) | SparseMatrixCSC | (4, 100)  |  108.465 μs |    1.210 μs | 89.64 |  109.364 μs |          4.814 μs | 22.72 |
+| (100, 100) | SparseMatrixCSC | (8, 100)  |  141.394 μs |    2.147 μs | 65.86 |  142.252 μs |          6.677 μs | 21.31 |
+| (100, 100) | SparseMatrixCSC | (16, 100) |  207.697 μs |    7.971 μs | 26.06 |  194.832 μs |         14.779 μs | 13.18 |
+| (100, 100) | Adjoint         | (100, 2)  |    2.766 μs |    1.176 μs |  2.35 |    2.549 μs |          3.214 μs |  0.79 |
+| (100, 100) | Adjoint         | (100, 4)  |    4.905 μs |    1.105 μs |  4.44 |    5.262 μs |          4.781 μs |   1.1 |
+| (100, 100) | Adjoint         | (100, 8)  |   11.115 μs |    1.494 μs |  7.44 |   11.038 μs |          6.533 μs |  1.69 |
+| (100, 100) | Adjoint         | (100, 16) |   19.540 μs |   50.530 μs |  0.39 |   20.988 μs |         58.226 μs |  0.36 |
+| (100, 100) | Adjoint         | (2, 100)  |   88.338 μs |    1.012 μs | 87.33 |   89.471 μs |          3.098 μs | 28.88 |
+| (100, 100) | Adjoint         | (4, 100)  |  103.730 μs |    1.111 μs | 93.41 |  104.953 μs |          4.515 μs | 23.25 |
+| (100, 100) | Adjoint         | (8, 100)  |  133.322 μs |    1.523 μs | 87.52 |  135.610 μs |          6.487 μs |  20.9 |
+| (100, 100) | Adjoint         | (16, 100) |  193.137 μs |   50.549 μs |  3.82 |  195.929 μs |         57.417 μs |  3.41 |
 ```
 
-## Benchmarks of `A'*X'`
+## n = 1000
 ```
-##### Benchmarks for A'*X' #####
-***** k = 2 *****
-###################
-typeof(A) = LinearAlgebra.Adjoint{Float64,SparseArrays.SparseMatrixCSC{Float64,Int64}}
-typeof(X) = LinearAlgebra.Adjoint{Float64,Array{Float64,2}}
-size(A) = (50000, 50000)
-size(X) = (50000, 2)
-Benchmark Julia's matmul
-BenchmarkTools.Trial: 
-  memory estimate:  781.66 KiB
-  allocs estimate:  8
-  --------------
-  minimum time:     17.557 s (0.00% GC)
-  median time:      17.557 s (0.00% GC)
-  mean time:        17.557 s (0.00% GC)
-  maximum time:     17.557 s (0.00% GC)
-  --------------
-  samples:          1
-  evals/sample:     1
-
-Benchmark PackedMatrixMultiVectorProducts
-BenchmarkTools.Trial: 
-  memory estimate:  2.29 MiB
-  allocs estimate:  24
-  --------------
-  minimum time:     1.545 ms (0.00% GC)
-  median time:      1.571 ms (0.00% GC)
-  mean time:        1.624 ms (2.48% GC)
-  maximum time:     6.011 ms (0.00% GC)
-  --------------
-  samples:          3073
-  evals/sample:     1
-###################
-***** k = 4 *****
-###################
-typeof(A) = LinearAlgebra.Adjoint{Float64,SparseArrays.SparseMatrixCSC{Float64,Int64}}
-typeof(X) = LinearAlgebra.Adjoint{Float64,Array{Float64,2}}
-size(A) = (50000, 50000)
-size(X) = (50000, 4)
-Benchmark Julia's matmul
-BenchmarkTools.Trial: 
-  memory estimate:  1.53 MiB
-  allocs estimate:  8
-  --------------
-  minimum time:     21.290 s (0.00% GC)
-  median time:      21.290 s (0.00% GC)
-  mean time:        21.290 s (0.00% GC)
-  maximum time:     21.290 s (0.00% GC)
-  --------------
-  samples:          1
-  evals/sample:     1
-
-Benchmark PackedMatrixMultiVectorProducts
-BenchmarkTools.Trial: 
-  memory estimate:  4.58 MiB
-  allocs estimate:  24
-  --------------
-  minimum time:     1.789 ms (0.00% GC)
-  median time:      1.842 ms (0.00% GC)
-  mean time:        1.962 ms (5.05% GC)
-  maximum time:     6.496 ms (0.00% GC)
-  --------------
-  samples:          2544
-  evals/sample:     1
-###################
-***** k = 8 *****
-###################
-typeof(A) = LinearAlgebra.Adjoint{Float64,SparseArrays.SparseMatrixCSC{Float64,Int64}}
-typeof(X) = LinearAlgebra.Adjoint{Float64,Array{Float64,2}}
-size(A) = (50000, 50000)
-size(X) = (50000, 8)
-Benchmark Julia's matmul
-BenchmarkTools.Trial: 
-  memory estimate:  3.05 MiB
-  allocs estimate:  8
-  --------------
-  minimum time:     28.655 s (0.00% GC)
-  median time:      28.655 s (0.00% GC)
-  mean time:        28.655 s (0.00% GC)
-  maximum time:     28.655 s (0.00% GC)
-  --------------
-  samples:          1
-  evals/sample:     1
-
-Benchmark PackedMatrixMultiVectorProducts
-BenchmarkTools.Trial: 
-  memory estimate:  9.16 MiB
-  allocs estimate:  24
-  --------------
-  minimum time:     2.995 ms (0.00% GC)
-  median time:      3.355 ms (0.00% GC)
-  mean time:        3.659 ms (9.16% GC)
-  maximum time:     80.682 ms (93.72% GC)
-  --------------
-  samples:          1365
-  evals/sample:     1
-###################
-***** k = 16 *****
-###################
-typeof(A) = LinearAlgebra.Adjoint{Float64,SparseArrays.SparseMatrixCSC{Float64,Int64}}
-typeof(X) = LinearAlgebra.Adjoint{Float64,Array{Float64,2}}
-size(A) = (50000, 50000)
-size(X) = (50000, 16)
-Benchmark Julia's matmul
-BenchmarkTools.Trial: 
-  memory estimate:  6.10 MiB
-  allocs estimate:  8
-  --------------
-  minimum time:     43.607 s (0.00% GC)
-  median time:      43.607 s (0.00% GC)
-  mean time:        43.607 s (0.00% GC)
-  maximum time:     43.607 s (0.00% GC)
-  --------------
-  samples:          1
-  evals/sample:     1
-
-Benchmark PackedMatrixMultiVectorProducts
-BenchmarkTools.Trial: 
-  memory estimate:  18.31 MiB
-  allocs estimate:  24
-  --------------
-  minimum time:     38.680 ms (2.61% GC)
-  median time:      40.496 ms (2.45% GC)
-  mean time:        41.055 ms (3.52% GC)
-  maximum time:     117.588 ms (62.71% GC)
-  --------------
-  samples:          122
-  evals/sample:     1
-###################
+julia> PackedMatrixMultiVectorProducts.benchmark(1000)
+| size(A)      | typeof(A)       | size(x)    | mul!(Y,A,X) | mul!(y,A,x) |  Ratio | Julia's A*X | unpack(A*pack(X)) |  Ratio |
+|:------------ |:--------------- |:---------- | -----------:| -----------:| ------:| -----------:| -----------------:| ------:|
+| (1000, 1000) | SparseMatrixCSC | (1000, 2)  |   33.154 μs |   15.876 μs |   2.09 |   34.247 μs |         24.106 μs |   1.42 |
+| (1000, 1000) | SparseMatrixCSC | (1000, 4)  |   61.941 μs |   15.863 μs |    3.9 |   62.732 μs |         27.364 μs |   2.29 |
+| (1000, 1000) | SparseMatrixCSC | (1000, 8)  |  123.407 μs |   24.793 μs |   4.98 |  125.089 μs |         43.959 μs |   2.85 |
+| (1000, 1000) | SparseMatrixCSC | (1000, 16) |  248.119 μs |   88.641 μs |    2.8 |  249.962 μs |        127.159 μs |   1.97 |
+| (1000, 1000) | SparseMatrixCSC | (2, 1000)  |    7.659 ms |   14.580 μs |  525.3 |    7.646 ms |         21.465 μs | 356.23 |
+| (1000, 1000) | SparseMatrixCSC | (4, 1000)  |    9.285 ms |   16.129 μs | 575.66 |    9.277 ms |         25.918 μs | 357.93 |
+| (1000, 1000) | SparseMatrixCSC | (8, 1000)  |   12.562 ms |   24.940 μs | 503.69 |   12.564 ms |         40.525 μs | 310.02 |
+| (1000, 1000) | SparseMatrixCSC | (16, 1000) |   19.201 ms |   88.249 μs | 217.58 |   19.200 ms |        120.361 μs | 159.52 |
+| (1000, 1000) | Adjoint         | (1000, 2)  |   28.041 μs |   14.380 μs |   1.95 |   29.448 μs |         20.752 μs |   1.42 |
+| (1000, 1000) | Adjoint         | (1000, 4)  |   55.757 μs |   14.817 μs |   3.76 |   57.497 μs |         29.225 μs |   1.97 |
+| (1000, 1000) | Adjoint         | (1000, 8)  |  111.909 μs |   20.850 μs |   5.37 |  113.699 μs |         40.880 μs |   2.78 |
+| (1000, 1000) | Adjoint         | (1000, 16) |  224.365 μs |  498.570 μs |   0.45 |  226.214 μs |        535.645 μs |   0.42 |
+| (1000, 1000) | Adjoint         | (2, 1000)  |    7.801 ms |   12.769 μs | 610.93 |    7.786 ms |         20.492 μs | 379.94 |
+| (1000, 1000) | Adjoint         | (4, 1000)  |    9.286 ms |   14.688 μs | 632.24 |    9.262 ms |         26.572 μs | 348.56 |
+| (1000, 1000) | Adjoint         | (8, 1000)  |   12.240 ms |   21.467 μs |  570.2 |   12.232 ms |         38.212 μs |  320.1 |
+| (1000, 1000) | Adjoint         | (16, 1000) |   18.180 ms |  498.760 μs |  36.45 |   18.196 ms |        529.596 μs |  34.36 |
 ```
-
-## Todo
-# make this report auto-generated!
