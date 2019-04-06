@@ -45,6 +45,15 @@ function benchmark(A,X)
                               s3,s4,round(r2,digits=2)]
 end
 
+function print_single_benchmark(onerow)
+    rows = []
+    push!(rows,Any["size(A)","typeof(A)","size(x)","mul!(Y,A,X)","mul!(y,A,x)","Ratio",
+                                        "Julia's A*X","unpack(A*pack(X))","Ratio"])
+    push!(rows,onerow)
+    table = Markdown.MD(Any[Markdown.Table(rows, Symbol[:l, :l, :l, :r,:r,:r,:r,:r,:r])])
+    println(table)
+end
+    
 function benchmark(n::Int64)
     kvalues = [2,4,8,16]
     @assert n>=100 #just to get a reasonable size network
