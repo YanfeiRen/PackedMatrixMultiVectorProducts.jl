@@ -77,6 +77,6 @@ function benchmark(n::Int64)
         b = benchmark(At,Xt)
         push!(rows,b)
     end
-    table = Markdown.MD(Any[Markdown.Table(rows, Symbol[:l, :r, :l, :r,:r,:r,:r,:r])])
+    table = Markdown.MD(Any[Markdown.Table(rows, Symbol[:l, :l, :l, :r,:r,:r,:r,:r,:r])])
     println(table)
 end
