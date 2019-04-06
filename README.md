@@ -41,7 +41,7 @@ YPacked = unpack(A*pack(X))
 print_single_benchmark(PackedMatrixMultiVectorProducts.benchmark(A,X))
 ```
 
-## benchmarks on `A` of size `1000-by-1000` and varying sizes of `X` (more benchmarks available in [benchmarks.md](benchmarks.md))
+Benchmarks on `A` of size `1000-by-1000` and varying sizes of `X` (more benchmarks available in [benchmarks.md](benchmarks.md))
 ```
 julia> PackedMatrixMultiVectorProducts.benchmark(1000)
 | size(A)      | typeof(A)       | size(x)    | mul!(Y,A,X) | mul!(y,A,x) |  Ratio | Julia's A*X | unpack(A*pack(X)) |  Ratio |
