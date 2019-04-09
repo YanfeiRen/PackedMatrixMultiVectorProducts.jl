@@ -6,44 +6,85 @@ Linux and macOS: [![Build Status](https://travis-ci.org/YanfeiRen/PackedMatrixMu
 
 The goal of this package is to perform operations such
 as `A*X`, `A'*X`, `A*X'`, `A'*X'` a little faster than Julia's builtin routines
-for a few vectors encoded into a matrix X.
-To do so, we use the StaticArrays to encode the righthand side matrix to
+where `A` is a sparse matrix and `X` is a matrix that 
+represents a small number (less than 32, say) vectors.
+To do so, we use the [StaticArrays.jl](https://github.com/JuliaArrays/StaticArrays.jl) 
+package to encode the righthand side matrix to
 a `Vector` of `StaticArrays`s. Using `StaticArrays` the compiler already
 know the size of the vector we are multiplying by and hence it can generate
-efficient SIMD code.
-
-The initial reason to build this
+efficient SIMD code and code with better memory locality for a sparse matrix
+vector product. The initial reason to build this
 was to use multiple iterative methods at once and use
-the SIMD feature to do this in less time. Hence, we are interested in the case
-when `A` is sparse and `X` is dense.
-In [benchmarks.md](benchmarks.md), we show benchmarks with for the 4 operations.
-Our current code works, however, when `A` is a dense matrix and also any
+the accelerated computation to do this in less time. 
+
+Our current code works when `A` is a dense matrix and also any
 of the specialized types in the standard LinearAlgebra package
 (`UniformScaling`, `Diagonal`, `Bidiagonal`, `Tridiagonal`, `Symmetric`,
 `Hermitian`, `UpperTriangular`, `LowerTriangular`, `SymTridiagonal`) although
 we make no claims about performance for these cases.
 
-Also, we would advise not using more than 16 columns if you are interested in
-performance. There are a few issues that slow down the computation with a large
-number of columns.
-
 ## Getting started and how to do a matrix-vector product.
+
+First, acquire and load the package. 
 ```
 using Pkg
 Pkg.clone("https://github.com/YanfeiRen/PackedMatrixMultiVectorProducts.jl")
 using PackedMatrixMultiVectorProducts
 using SparseArrays
+```
+
+Second, allocate a sparse matrix and right hand side.
+```
 A = sprand(100,100,0.1)
 X = randn(100,8)
+```
+
+Third, just replace `A*X` with `unpack(A*pack(X))`
+```
 YJulia = A*X
 YPacked = unpack(A*pack(X))
 @assert YJulia == YPacked
+```
+
+Of course, if you really want performance, you probably want to use 
+the in-place operations
+```
+x = pack(X)  # start off by packing
+y = similar(x, size(A,1))
+mul!(y,A,x) # compute y = A*x
+mul!(x,A,y) # compute x = A*y = A^2 x
+mul!(y,A,x) # compute y = A*x = A^3 x now
+Y = unpack(y) # convert pack to a matrix 
+@assert Y ≈ A*(A*(A*X))
+```
+
+Because we expect the performance to vary a lot based on the
+scenario, we include tools to make benchmarking easy. 
+```
 print_single_benchmark(PackedMatrixMultiVectorProducts.benchmark(A,X))
 ```
+
+## Performance
+In [benchmarks.md](benchmarks.md), we show benchmarks with for the 4 operations.
+Also, we would advise not using more than 16 columns if you are interested in
+performance. There are a few issues that slow down the computation with a large
+number of columns.
+
+Here is a quick sample of the performance results.
+`x` and `y` are packed multi-vectors that represent the matrix `X` and `Y`.
+So the benchmark compares
+`mul!(Y,A,X)` vs. `mul!(y,A,x)` in the case where everything is pre-allocated
+and `A*X` vs. `unpack(A*pack(X))` in the case where we allocate memory. 
+Note that even with the allocations, all by one case are faster. 
+
+At the moment, there is a performance issue with Julia for the case
+of `X'*A'`, which results in very slow performance. (the last 4 rows...)
 
 Benchmarks on `A` of size `1000-by-1000` and varying sizes of `X` (more benchmarks available in [benchmarks.md](benchmarks.md))
 ```
 julia> PackedMatrixMultiVectorProducts.benchmark(1000)
+```
+
 | size(A)      | typeof(A)       | size(x)    | mul!(Y,A,X) | mul!(y,A,x) |  Ratio | Julia's A*X | unpack(A*pack(X)) |  Ratio |
 |:------------ |:--------------- |:---------- | -----------:| -----------:| ------:| -----------:| -----------------:| ------:|
 | (1000, 1000) | SparseMatrixCSC | (1000, 2)  |   33.154 μs |   15.876 μs |   2.09 |   34.247 μs |         24.106 μs |   1.42 |
