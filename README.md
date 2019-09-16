@@ -1,6 +1,4 @@
-Linux and macOS: [![Build Status](https://travis-ci.org/nassarhuda/PackedMatrixMultiVectorProducts.jl.svg?branch=master)](https://travis-ci.org/nassarhuda/PackedMatrixMultiVectorProducts.jl)
-
-[![Coverage Status](https://coveralls.io/repos/nassarhuda/PackedMatrixMultiVectorProducts.jl/badge.svg?branch=master)](https://coveralls.io/r/nassarhuda/PackedMatrixMultiVectorProducts.jl?branch=master)
+Linux and macOS: [![Build Status](https://travis-ci.org/nassarhuda/PackedMatrixMultiVectorProducts.jl.svg?branch=master)](https://travis-ci.org/nassarhuda/PackedMatrixMultiVectorProducts.jl) [![Coverage Status](https://coveralls.io/repos/nassarhuda/PackedMatrixMultiVectorProducts.jl/badge.svg?branch=master)](https://coveralls.io/r/nassarhuda/PackedMatrixMultiVectorProducts.jl?branch=master)
 
 # PackedMatrixMultiVectorProducts.jl
 
@@ -115,3 +113,28 @@ Platform Info:
   LIBM: libopenlibm
   LLVM: libLLVM-6.0.1 (ORCJIT, skylake)
 ```
+
+And for something a little bigger
+```
+julia> PackedMatrixMultiVectorProducts.benchmark(1000000)
+```
+| size(A)            | typeof(A)       | size(x)       | mul!(Y,A,X) | mul!(y,A,x) | Ratio | Julia's A*X | unpack(A*pack(X)) | Ratio |
+|:------------------ |:--------------- |:------------- | -----------:| -----------:| -----:| -----------:| -----------------:| -----:|
+| (1000000, 1000000) | SparseMatrixCSC | (1000000, 2)  |  134.149 ms |   83.334 ms |  1.61 |  138.417 ms |         99.394 ms |  1.39 |
+| (1000000, 1000000) | SparseMatrixCSC | (1000000, 4)  |  275.595 ms |  133.553 ms |  2.06 |  282.963 ms |        157.876 ms |  1.79 |
+| (1000000, 1000000) | SparseMatrixCSC | (1000000, 8)  |  553.007 ms |  247.248 ms |  2.24 |  576.602 ms |        355.525 ms |  1.62 |
+| (1000000, 1000000) | SparseMatrixCSC | (1000000, 16) |     1.107 s |  576.891 ms |  1.92 |     1.152 s |        791.676 ms |  1.46 |
+| (1000000, 1000000) | SparseMatrixCSC | (2, 1000000)  |  138.457 ms |   84.079 ms |  1.65 |  143.569 ms |         98.757 ms |  1.45 |
+| (1000000, 1000000) | SparseMatrixCSC | (4, 1000000)  |  302.768 ms |  131.865 ms |   2.3 |  312.552 ms |        157.486 ms |  1.98 |
+| (1000000, 1000000) | SparseMatrixCSC | (8, 1000000)  |  731.343 ms |  247.999 ms |  2.95 |  684.868 ms |        360.277 ms |   1.9 |
+| (1000000, 1000000) | SparseMatrixCSC | (16, 1000000) |     1.353 s |  576.963 ms |  2.35 |     1.397 s |        796.864 ms |  1.75 |
+| (1000000, 1000000) | Adjoint         | (1000000, 2)  |  121.954 ms |   67.678 ms |   1.8 |  121.721 ms |         81.948 ms |  1.49 |
+| (1000000, 1000000) | Adjoint         | (1000000, 4)  |  299.823 ms |  104.071 ms |  2.88 |  310.340 ms |        123.813 ms |  2.51 |
+| (1000000, 1000000) | Adjoint         | (1000000, 8)  |  612.511 ms |  149.475 ms |   4.1 |  633.850 ms |        250.552 ms |  2.53 |
+| (1000000, 1000000) | Adjoint         | (1000000, 16) |  998.193 ms |     1.484 s |  0.67 |     1.042 s |           1.679 s |  0.62 |
+| (1000000, 1000000) | Adjoint         | (2, 1000000)  |  133.886 ms |   64.967 ms |  2.06 |  134.003 ms |         82.011 ms |  1.63 |
+| (1000000, 1000000) | Adjoint         | (4, 1000000)  |  403.951 ms |  104.112 ms |  3.88 |  403.852 ms |        123.470 ms |  3.27 |
+| (1000000, 1000000) | Adjoint         | (8, 1000000)  |     1.105 s |  149.390 ms |   7.4 |     1.105 s |        259.830 ms |  4.25 |
+| (1000000, 1000000) | Adjoint         | (16, 1000000) |     2.516 s |     1.457 s |  1.73 |     2.514 s |           1.691 s |  1.49 |
+
+
