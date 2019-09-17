@@ -1,6 +1,6 @@
 name = "PackedMatrixMultiVectorProducts" 
 uuid = "8090689f-6272-5167-a762-b1b7ce6fe988"
-authors = ["David Gleich <dgleich@purdue.edu>","Huda Nassar <hnassar@purdue.edu>", "Yanfei Ren <ren105@purdue.edu>"]]
+authors = ["David Gleich <dgleich@purdue.edu>","Huda Nassar <hnassar@purdue.edu>", "Yanfei Ren <ren105@purdue.edu>"]
 version = "v1.0.0"
 
 [deps]
