@@ -62,6 +62,34 @@ scenario, we include tools to make benchmarking easy.
 print_single_benchmark(PackedMatrixMultiVectorProducts.benchmark(A,X))
 ```
 
+## Interface with other packages
+
+If the other package is well implemented, you shouldn't need to do much to use 
+PackedMatrixMultiVectorProducts with it. The ODE suite in Julia in `DifferentialEquations.jl`
+is a particular good example of this type of interface.
+
+```
+## Without PackedMatrixMultiVectorProducts
+using DifferentialEquations
+A  = [1. 0  0 -5
+      4 -2  4 -3
+     -4  0  0  1
+      5 -2  2  3]
+u0 = rand(4,2)
+tspan = (0.0,1.0)
+f(u,p,t) = A*u
+prob = ODEProblem(f,u0,tspan)
+sol = solve(prob)
+
+## With PackedMatrixMultiVectorProducts
+using PackedMatrixMultiVectorProducts
+prob = ODEProblem(f,pack(u0),tspan)
+sol = solve(prob)
+sol
+```
+
+By doing so, you can solve 4-8 ODEs at once with little extra overhead. 
+
 ## Performance
 In [benchmarks.md](benchmarks.md), we show benchmarks with for the 4 operations.
 Also, we would advise not using more than 16 columns if you are interested in
